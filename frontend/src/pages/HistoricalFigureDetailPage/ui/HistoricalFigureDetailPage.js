@@ -2,6 +2,9 @@ import Styles from './HistoricalFigureDetailPage.module.css';
 import {useParams} from 'react-router-dom';
 import {historicalFigures} from '../../const/historicalFigures';
 import {Breadcrumbs} from '../../../shared/ui/Breadcrumbs/Breadcrumbs';
+import vovaImage from "../../../shared/static/images/vova.png";
+import lenaImage from "../../../shared/static/images/lena.png";
+import jannaImage from "../../../shared/static/images/janna.png";
 
 export function HistoricalFigureDetailPage() {
     const {id} = useParams();
@@ -17,13 +20,34 @@ export function HistoricalFigureDetailPage() {
         [figure.name, `/historical_figure/${figure.id}`]
     ];
 
+    // Массив изображений для галереи
+    const galleryImages = [figure.image, vovaImage, lenaImage, jannaImage];
+
     return (
         <>
             <Breadcrumbs links={breadcrumbsLinks}/>
             <div className={Styles.HistoricalFigureDetailPage}>
                 <div className={Styles.Content}>
-                    <div className={Styles.ImageContainer}>
-                        <img src={figure.image} alt={figure.name} className={Styles.Image}/>
+                    <div className={Styles.ImageGallery}>
+                        <div className={Styles.MainImage}>
+                            <img src={figure.image} alt={figure.name} className={Styles.Image}/>
+                        </div>
+                        <div className={Styles.Thumbnails}>
+                            {galleryImages.map((image, index) => (
+                                <div 
+                                    key={index} 
+                                    className={Styles.Thumbnail}
+                                    onClick={() => {
+                                        const mainImage = document.querySelector(`.${Styles.MainImage} img`);
+                                        if (mainImage) {
+                                            mainImage.src = image;
+                                        }
+                                    }}
+                                >
+                                    <img src={image} alt={`${figure.name} - фото ${index + 1}`} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <div className={Styles.Info}>
                         <h1 className={Styles.Name}>{figure.name}</h1>
