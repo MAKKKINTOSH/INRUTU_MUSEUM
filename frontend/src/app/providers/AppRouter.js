@@ -7,6 +7,7 @@ import {ArtifactPage} from "../../pages"
 import {ArtifactDetailPage} from "../../pages/ArtifactDetailPage/ui/ArtifactDetailPage"
 import {HistoricalFiguresPage} from "../../pages/HistoricalFiguresPage/ui/HistoricalFiguresPage"
 import {HistoricalFigureDetailPage} from "../../pages/HistoricalFigureDetailPage/ui/HistoricalFigureDetailPage"
+import {Excursions} from "../../pages/Excursions/Excursions"
 
 // Компонент для проверки авторизации
 function ProtectedRoute({ children }) {
@@ -27,6 +28,7 @@ const appRoutes = [
     {path: "/artifact/:id", element: <ArtifactDetailPage/>},
     {path: routes.historicalFigures, element: <HistoricalFiguresPage/>},
     {path: "/historical_figure/:id", element: <HistoricalFigureDetailPage/>},
+    {path: routes.excursions, element: <Excursions/>},
     {path: routes.contacts, element: <ContactsPage/>},
     {path: routes.survey, element: <FeedbackPage/>},
     {
