@@ -1,5 +1,6 @@
 import routerImage from "../../shared/static/images/router.jpg"
 import vovaImage from "../../shared/static/images/vova.png"
+import {historicalFigures} from "./historicalFigures"
 
 export const museumSections = {
     inrtuHalls: {
@@ -22,7 +23,7 @@ export const museumSections = {
     },
     computersHalls: {
         title: "Залы вычислительной техники",
-        description: "Упроядоченная по эпохе вычислительная техника:",
+        description: "Упорядоченная по эпохе вычислительная техника:",
         link: "/halls?hallType=computersHalls",
         linkText: "Посмотреть все залы вычислительной техники",
         sections: [
@@ -49,62 +50,31 @@ export const museumSections = {
         ]
     },
 }
+
 export const excursionSection = {
     title: "Приглашаем на цифровую экскурсию",
     description: "Пройдитесь по виртуальным залам ИрНИТУ:",
-    link: "/home",
+    link: "/excursions",
     linkText: "Перейти к экскурсиям",
     sections: [
         {
-            link: "/home",
+            link: "/excursions",
             imageUrl: routerImage,
-            text: "Основное здание ИрНИТУ"
+            text: "Виртуальная экскурсия по музею"
         },
     ]
 }
 
-export const historicalFigures = [
+export const historicalFiguresSection = [
     {
         title: "Исторические деятели",
-        description: "Эти люди сделали вклад в развитие информационнных техноногий:",
-        link: "/home",
+        description: "Эти люди сделали вклад в развитие информационных технологий:",
+        link: "/historical_figures",
         linkText: "Посмотреть всех исторических деятелей",
-        sections: [
-            {
-                imageUrl: vovaImage,
-                personName: "Его Отчислили",
-                link: "/home"
-            },
-            {
-                imageUrl: vovaImage,
-                personName: "Помним Любим Скорбим",
-                link: "/home"
-            },
-            {
-                imageUrl: vovaImage,
-                personName: "Вова Степанов Жесть",
-                link: "/home"
-            },
-            {
-                imageUrl: vovaImage,
-                personName: "Может Это Сон",
-                link: "/home"
-            },
-            {
-                imageUrl: vovaImage,
-                personName: "Нам Тебя Не Хватает",
-                link: "/home"
-            },
-            {
-                imageUrl: vovaImage,
-                personName: "Нам Тебя Не Хватает",
-                link: "/home"
-            },
-            {
-                imageUrl: vovaImage,
-                personName: "Нам Тебя Не Хватает",
-                link: "/home"
-            }
-        ]
+        sections: historicalFigures.slice(0, 6).map(figure => ({
+            imageUrl: figure.image,
+            personName: figure.name,
+            link: `/historical_figure/${figure.id}`
+        }))
     }
 ]

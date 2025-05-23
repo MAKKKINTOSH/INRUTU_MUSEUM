@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from "./HomePage.module.css"
 import {MuseumSection} from "../../../widgets";
-import {museumSections, excursionSection, historicalFigures} from "../../const/sections";
+import {museumSections, excursionSection, historicalFiguresSection} from "../../const/sections";
 import {MuseumWidgetList} from "../../../shared/ui";
 import {ItemCardList} from "../../../shared/ui"
 
@@ -27,15 +27,15 @@ export function HomePage() {
 
             <section className={Styles.ContentSection}>
                 {Object.entries(museumSections).map(([name, section]) => (
-                            <MuseumSection
-                                key={name}
-                                title={section.title}
-                                description={section.description}
-                                link={section.link}
-                                linkText={section.linkText}
-                            >
-                                <MuseumWidgetList widgets={section.sections}/>
-                            </MuseumSection>
+                    <MuseumSection
+                        key={name}
+                        title={section.title}
+                        description={section.description}
+                        link={section.link}
+                        linkText={section.linkText}
+                    >
+                        <MuseumWidgetList widgets={section.sections}/>
+                    </MuseumSection>
                 ))}
             </section>
 
@@ -51,16 +51,16 @@ export function HomePage() {
             </section>
 
             <section className={Styles.HistoricalFiguresSection}>
-                {historicalFigures.map((section, index) => (
-                            <MuseumSection
+                {historicalFiguresSection.map((section, index) => (
+                    <MuseumSection
                         key={index}
-                                title={section.title}
-                                description={section.description}
-                                link={section.link}
-                                linkText={section.linkText}
-                            >
-                                <ItemCardList persons={section.sections}/>
-                            </MuseumSection>
+                        title={section.title}
+                        description={section.description}
+                        link={section.link}
+                        linkText={section.linkText}
+                    >
+                        <ItemCardList persons={section.sections}/>
+                    </MuseumSection>
                 ))}
             </section>
         </div>
