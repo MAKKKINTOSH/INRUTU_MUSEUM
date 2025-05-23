@@ -1,0 +1,39 @@
+.ContactsPage {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ContactsPage h1 {
+    color: var(--c-dark-blue);
+    font-size: var(--font-size-big);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.ContactInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.ContactBlock {
+    background-color: var(--c-white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ContactBlock h2 {
+    color: var(--c-dark-blue);
+    font-size: var(--font-size-standart);
+    margin-bottom: 1rem;
+    font-weight: var(--font-weight-semibold);
+}
+
+.ContactBlock p {
+    color: var(--c-dark-gray);
+    margin: 0.5rem 0;
+    font-size: var(--font-size-standart);
+} 

@@ -1,0 +1,24 @@
+
+.MuseumSection {
+    display: grid;
+    gap: 8px;
+}
+
+.SectionHeader {
+    height: 39px;
+    margin: 0;
+    color: var(--c-blue);
+    text-align: center;
+    font-weight: bold;
+    font-size: var(--font-size-big);
+}
+
+.SectionMainContent{
+    padding: 0 96px;
+    max-width: 1280px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    gap: 8px;
+}

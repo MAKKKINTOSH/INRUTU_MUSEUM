@@ -1,0 +1,59 @@
+.container {
+    padding: 20px;
+    padding-left: 140px; /* Учитываем ширину временной шкалы */
+    min-height: 100vh;
+    background-color: var(--c-white);
+}
+
+.content {
+    max-width: var(--width-main-content);
+    margin: 0 auto;
+}
+
+.title {
+    font-size: var(--font-size-big);
+    color: var(--c-dark-blue);
+    margin-bottom: 30px;
+    font-weight: var(--font-weight-semibold);
+}
+
+.artifactsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.ArtifactPage {
+    display: flex;
+    padding: 20px;
+    margin-left: 120px;
+    min-height: 100vh;
+}
+
+.ArtifactGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    padding: 20px;
+}
+
+.CenturySection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.CenturyTitle {
+    font-size: var(--font-size-big);
+    color: var(--c-dark-blue);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+}
+
+.ArtifactCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+} 

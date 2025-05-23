@@ -1,0 +1,41 @@
+.timeline {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    padding: 20px 0;
+    background-color: var(--c-white);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.century {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.century:hover {
+    background-color: var(--c-gray);
+}
+
+.century.active {
+    background-color: var(--c-blue);
+}
+
+.century.active .centuryLabel {
+    color: var(--c-white);
+}
+
+.centuryLabel {
+    font-size: var(--font-size-standart);
+    color: var(--c-dark-blue);
+    margin-bottom: 5px;
+}
+
+.centuryLine {
+    height: 2px;
+    background-color: var(--c-dark-gray);
+    width: 100%;
+} 

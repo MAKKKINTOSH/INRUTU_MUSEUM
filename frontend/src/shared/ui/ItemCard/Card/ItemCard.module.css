@@ -1,0 +1,22 @@
+.ItemCard {
+    display: grid;
+    text-align: center;
+    gap: 8px;
+    max-width: 200px;
+}
+
+.ItemCard img {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.ItemCard img:hover{
+    scale: 95%
+}
+
+.ItemCard p {
+    color: var(--c-dark-blue);
+    margin: 0;
+}

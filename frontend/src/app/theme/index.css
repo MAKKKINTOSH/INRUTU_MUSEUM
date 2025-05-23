@@ -1,0 +1,24 @@
+@import "./normalize.css";
+@import "./variables.css";
+@import "./generalStyles.css";
+@import "./stylesExtenders.css";
+
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-size: var(--font-size-standart);
+}
+
+.Content {
+    flex: 1;
+    width: 100%;
+    margin: 16px auto 0;
+    max-width: var(--width-main-content);
+}
+
+main {
+    flex: 1;
+    background-color: var(--c-white);
+}

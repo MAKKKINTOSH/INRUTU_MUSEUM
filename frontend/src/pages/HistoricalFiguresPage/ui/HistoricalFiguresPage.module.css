@@ -1,0 +1,33 @@
+.HistoricalFiguresPage {
+    display: flex;
+    padding: 20px;
+    margin-left: 120px;
+    min-height: 100vh;
+}
+
+.FiguresGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    padding: 20px;
+}
+
+.CenturySection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.CenturyTitle {
+    font-size: var(--font-size-big);
+    color: var(--c-dark-blue);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+}
+
+.FigureCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+} 

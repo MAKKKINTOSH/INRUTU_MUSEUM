@@ -1,0 +1,41 @@
+
+.HomePage {
+    width: 100%;
+}
+
+.WelcomeSection {
+    position: relative;
+    height: 522px;
+}
+.WelcomeSection:before {
+    content: "";
+    border-radius: var(--border-radius);
+    background-image: url("../../../shared/static/images/computers.jpg");
+    background-size: cover;
+    background-position: center center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    mask-image: linear-gradient(to right, transparent 25%, black 100%);
+}
+
+.WelcomeContent {
+    height: 100%;
+    width: 50%;
+    box-sizing: border-box;
+    color: var(--c-dark-blue);
+    backdrop-filter: blur(16px);
+    padding: 32px 96px;
+}
+
+.WelcomeContent h1 {
+    color: var(--c-blue);
+}
+
+.SectionsSeparator {
+    border-top: 1px solid var(--c-blue);
+    margin: 16px auto;
+    width: 60%;
+}

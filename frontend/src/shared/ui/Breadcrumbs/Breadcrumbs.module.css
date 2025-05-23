@@ -1,0 +1,22 @@
+.Breadcrumb {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    list-style: none;
+    background-color: var(--c-white);
+    padding-inline-start: 0;
+    gap: 8px;
+}
+
+.Breadcrumb li {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.Breadcrumb li:not(:last-child)::after {
+    content: "•";
+    margin-left: 8px;
+    color: var(--c-blue);
+    font-size: 18px;
+}
