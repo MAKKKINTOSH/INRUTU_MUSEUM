@@ -28,7 +28,7 @@ export function HistoricalFiguresPage() {
         <>
             <Breadcrumbs links={breadcrumbsLinks}/>
             <div className={Styles.HistoricalFiguresPage}>
-                <Timeline artifactsByCentury={figuresByCentury} />
+                <Timeline artifactsByCentury={figuresByCentury} countLabel="деятеля" />
                 <div className={Styles.FiguresGrid}>
                     {sortedCenturies.map(century => (
                         <div key={century} className={Styles.CenturySection}>

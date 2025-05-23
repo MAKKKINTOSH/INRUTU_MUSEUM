@@ -1,6 +1,6 @@
 import Styles from "./Timeline.module.css"
 
-export function Timeline({ artifactsByCentury }) {
+export function Timeline({ artifactsByCentury, countLabel = "экспонатов" }) {
     // Получаем века и сортируем их
     const centuries = Object.keys(artifactsByCentury)
         .map(Number)
@@ -15,7 +15,7 @@ export function Timeline({ artifactsByCentury }) {
                         <div className={Styles.TimelineDot} />
                         <div className={Styles.TimelineYear}>{century / 100 + 1} век</div>
                         <div className={Styles.ArtifactCount}>
-                            {artifactsByCentury[century].length} экспонатов
+                            {artifactsByCentury[century].length} {countLabel}
                         </div>
                     </div>
                 ))}
