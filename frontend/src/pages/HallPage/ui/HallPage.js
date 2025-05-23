@@ -13,14 +13,14 @@ const breadcrumbsLinks = [
 function getHallPageHeader(hallType, hallSectionsLinks) {
     return (
         <div className={Styles.HallsHeader}>
-            {
-                hallSectionsLinks.map(({name, link, type}) => (
+            <div className={Styles.Navigation}>
+                {hallSectionsLinks.map(({name, link, type}) => (
                     type === hallType ?
                         <p className="text" key={name}>{name}</p>
                         : <p className="text" key={name}><Link className="link" to={link}>{name}</Link></p>
-                ))
-            }
-            {hallType !== "all" ? <p className="title t-lt pb-8" style={{paddingTop: 0}}>Выберете зал</p> : null}
+                ))}
+            </div>
+            {hallType !== "all" ? <p className="title t-lt">Выберите зал</p> : null}
         </div>
     )
 }

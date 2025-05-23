@@ -1,7 +1,7 @@
 .HistoricalFiguresPage {
-    display: flex;
-    padding: 20px;
-    margin-left: 120px;
+    padding: 40px 24px;
+    max-width: var(--width-main-content);
+    margin: 0 auto;
     min-height: 100vh;
 }
 
@@ -10,24 +10,53 @@
     flex-direction: column;
     gap: 40px;
     width: 100%;
-    padding: 20px;
+    padding: 24px;
+    background: var(--c-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .CenturySection {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .CenturyTitle {
-    font-size: var(--font-size-big);
+    font-size: 24px;
     color: var(--c-dark-blue);
     font-weight: var(--font-weight-semibold);
     margin: 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .FigureCards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .HistoricalFiguresPage {
+        padding: 24px 16px;
+    }
+    
+    .FiguresGrid {
+        padding: 16px;
+        gap: 32px;
+    }
+    
+    .CenturySection {
+        gap: 16px;
+    }
+    
+    .CenturyTitle {
+        font-size: 20px;
+        padding-bottom: 12px;
+    }
+    
+    .FigureCards {
+        gap: 16px;
+    }
 } 

@@ -1,22 +1,60 @@
 .Breadcrumb {
     display: flex;
     align-items: center;
-    margin: 0;
+    margin: 16px 0;
     list-style: none;
     background-color: var(--c-white);
-    padding-inline-start: 0;
-    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .Breadcrumb li {
     display: inline-flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 14px;
+    color: var(--c-dark-gray);
+    transition: color 0.3s ease;
 }
 
 .Breadcrumb li:not(:last-child)::after {
-    content: "•";
-    margin-left: 8px;
+    content: "›";
+    margin-left: 12px;
     color: var(--c-blue);
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.Breadcrumb li a {
+    color: var(--c-dark-gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.Breadcrumb li a:hover {
+    color: var(--c-blue);
+}
+
+.Breadcrumb li:last-child {
+    color: var(--c-blue);
+    font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 768px) {
+    .Breadcrumb {
+        padding: 8px 16px;
+        margin: 12px 0;
+        gap: 8px;
+    }
+
+    .Breadcrumb li {
+        font-size: 13px;
+    }
+
+    .Breadcrumb li:not(:last-child)::after {
+        margin-left: 8px;
+        font-size: 14px;
+    }
 }

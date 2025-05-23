@@ -1,25 +1,103 @@
+/* Общие стили для заголовков */
 .title {
-    height: 39px;
-    margin: 0;
-    color: var(--c-blue);
-    text-align: center;
-    font-weight: bold;
-    font-size: var(--font-size-big);
-}
-
-.text {
+    font-size: 32px;
+    font-weight: var(--font-weight-semibold);
     color: var(--c-dark-blue);
-    margin: 0;
-    text-align: left;
-    font-size: var(--font-size-standart);
+    margin: 0 0 24px 0;
+    line-height: 1.2;
 }
 
+/* Общие стили для текста */
+.text {
+    font-size: var(--font-size-standart);
+    line-height: 1.6;
+    color: var(--c-dark-gray);
+    margin: 0 0 16px 0;
+}
 
-.link, .link:visited {
+/* Общие стили для ссылок */
+.link {
     color: var(--c-blue);
-    margin: 0 auto;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: var(--font-weight-semibold);
 }
 
 .link:hover {
     color: var(--c-dark-blue);
+}
+
+/* Общие стили для кнопок */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: var(--c-blue);
+    color: var(--c-white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-standart);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--c-dark-blue);
+    transform: translateY(-2px);
+}
+
+/* Общие стили для карточек */
+.card {
+    background: var(--c-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Общие стили для секций */
+.section {
+    padding: 40px 24px;
+    max-width: var(--width-main-content);
+    margin: 0 auto;
+}
+
+/* Общие стили для сеток */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 24px 0;
+}
+
+/* Общие стили для разделителей */
+.separator {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--c-blue), transparent);
+    margin: 32px auto;
+    width: 60%;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .title {
+        font-size: 24px;
+    }
+    
+    .section {
+        padding: 24px 16px;
+    }
+    
+    .grid {
+        gap: 16px;
+    }
 }

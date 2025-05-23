@@ -1,39 +1,69 @@
 .ContactsPage {
-    padding: 2rem;
-    max-width: 1200px;
+    padding: 40px 24px;
+    max-width: var(--width-main-content);
     margin: 0 auto;
 }
 
 .ContactsPage h1 {
     color: var(--c-dark-blue);
-    font-size: var(--font-size-big);
-    margin-bottom: 2rem;
+    font-size: 32px;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 32px;
     text-align: center;
 }
 
 .ContactInfo {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
-}
-
-.ContactBlock {
-    background-color: var(--c-white);
-    padding: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 24px;
+    background: var(--c-white);
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.ContactBlock {
+    padding: 24px;
+    background: var(--c-white);
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ContactBlock:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .ContactBlock h2 {
     color: var(--c-dark-blue);
-    font-size: var(--font-size-standart);
-    margin-bottom: 1rem;
+    font-size: 20px;
+    margin-bottom: 16px;
     font-weight: var(--font-weight-semibold);
 }
 
 .ContactBlock p {
     color: var(--c-dark-gray);
-    margin: 0.5rem 0;
+    margin: 8px 0;
     font-size: var(--font-size-standart);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .ContactsPage {
+        padding: 24px 16px;
+    }
+    
+    .ContactsPage h1 {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .ContactInfo {
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .ContactBlock {
+        padding: 16px;
+    }
 } 

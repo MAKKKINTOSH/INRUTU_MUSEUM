@@ -63,23 +63,28 @@
 }
 
 .ArtifactDetailPage {
-    display: flex;
-    gap: 40px;
-    padding: 40px;
+    padding: 40px 24px;
     max-width: var(--width-main-content);
     margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    background: var(--c-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ArtifactImage {
     flex: 1;
     max-width: 600px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .ArtifactImage img {
     width: 100%;
     height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 }
 
 .ArtifactInfo {
@@ -87,10 +92,11 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    padding: 24px;
 }
 
 .Title {
-    font-size: var(--font-size-big);
+    font-size: 32px;
     color: var(--c-dark-blue);
     font-weight: var(--font-weight-semibold);
     margin: 0;
@@ -105,7 +111,7 @@
 .Description, .Location {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
 }
 
 .Description h2, .Location h2 {
@@ -120,4 +126,34 @@
     color: var(--c-dark-gray);
     line-height: 1.6;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .ArtifactDetailPage {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .ArtifactImage {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .ArtifactDetailPage {
+        padding: 24px 16px;
+    }
+    
+    .ArtifactInfo {
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .Title {
+        font-size: 24px;
+    }
+    
+    .Description h2, .Location h2 {
+        font-size: 20px;
+    }
 } 

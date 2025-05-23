@@ -32,7 +32,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     flex: 1;
 }
 
@@ -44,9 +44,14 @@
 }
 
 .Years {
-    font-size: var(--font-size-small);
-    color: var(--c-gray);
+    font-size: var(--font-size-standart);
+    color: var(--c-blue);
+    font-weight: var(--font-weight-semibold);
     margin: 0;
+    padding: 4px 8px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 4px;
+    display: inline-block;
 }
 
 .Description {

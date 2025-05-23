@@ -12,26 +12,23 @@ export function HomePage() {
                 <div className={Styles.WelcomeContent}>
                     <h1>Музей вычислительной техники</h1>
                     <p>Приветствуем вас в Музее вычислительной техники ИрНИТУ!</p>
-
                     <p>
                         Здесь вы сможете погрузиться в историю развития цифровой электроники: от первых вычислительных
                         машин до современных технологий. Вас ждут экспонаты, демонстрирующие путь от ламповых
-                        компьютеров до современных процессоров. Также вы узнаете о выдающихся ученых, чьи открытия
-                        заложили основу современной IT-индустрии.
+                        компьютеров до современных процессоров.
                     </p>
-
                     <p>
+                        Также вы узнаете о выдающихся ученых, чьи открытия заложили основу современной IT-индустрии.
                         Приглашаем вас на увлекательное путешествие по этапам эволюции техники, которые определили облик
                         сегодняшнего цифрового мира!
                     </p>
                 </div>
             </section>
-            <hr className={Styles.SectionsSeparator}/>
+
             <section className={Styles.ContentSection}>
-                {
-                    Object.entries(museumSections).map(([name, section]) =>
-                        <React.Fragment key={name}>
+                {Object.entries(museumSections).map(([name, section]) => (
                             <MuseumSection
+                                key={name}
                                 title={section.title}
                                 description={section.description}
                                 link={section.link}
@@ -39,12 +36,10 @@ export function HomePage() {
                             >
                                 <MuseumWidgetList widgets={section.sections}/>
                             </MuseumSection>
-                        </React.Fragment>
-                    ).reduce((prev, curr) => {
-                        return prev === null ? [prev] : [prev, <hr key={`separator-${prev}`} className={Styles.SectionsSeparator}/>, curr]
-                    })
-                }
-                <hr className={Styles.SectionsSeparator}/>
+                ))}
+            </section>
+
+            <section className={Styles.ContentSection}>
                 <MuseumSection
                     title={excursionSection.title}
                     description={excursionSection.description}
@@ -54,13 +49,11 @@ export function HomePage() {
                     <MuseumWidgetList widgets={excursionSection.sections}/>
                 </MuseumSection>
             </section>
-            <hr className={Styles.SectionsSeparator}/>
+
             <section className={Styles.HistoricalFiguresSection}>
-                {
-                    historicalFigures.map((section, i) =>
-                        <>
+                {historicalFigures.map((section, index) => (
                             <MuseumSection
-                                key={i}
+                        key={index}
                                 title={section.title}
                                 description={section.description}
                                 link={section.link}
@@ -68,13 +61,7 @@ export function HomePage() {
                             >
                                 <ItemCardList persons={section.sections}/>
                             </MuseumSection>
-                        </>
-                    ).reduce((prev, curr) => {
-                        return prev === null ?
-                            [prev]
-                            : [prev, <hr key={(crypto.randomUUID())} className={Styles.SectionsSeparator}/>, curr]
-                    })
-                }
+                ))}
             </section>
         </div>
     )

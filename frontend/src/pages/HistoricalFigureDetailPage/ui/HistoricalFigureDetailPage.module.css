@@ -1,14 +1,14 @@
 .HistoricalFigureDetailPage {
-    padding: 20px;
+    padding: 40px 24px;
+    max-width: var(--width-main-content);
+    margin: 0 auto;
     min-height: 100vh;
 }
 
 .Content {
-    max-width: var(--width-main-content);
-    margin: 0 auto;
     display: flex;
     gap: 40px;
-    padding: 20px;
+    padding: 24px;
     background: var(--c-white);
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -19,6 +19,7 @@
     height: 500px;
     border-radius: var(--border-radius);
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .Image {
@@ -31,38 +32,73 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .Name {
-    font-size: var(--font-size-big);
+    font-size: 32px;
     color: var(--c-dark-blue);
     font-weight: var(--font-weight-semibold);
     margin: 0;
 }
 
 .Years {
-    font-size: var(--font-size-medium);
-    color: var(--c-gray);
+    font-size: var(--font-size-standart);
+    color: var(--c-dark-gray);
     margin: 0;
 }
 
 .Description {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
 }
 
 .Description h2 {
-    font-size: var(--font-size-medium);
+    font-size: 24px;
     color: var(--c-dark-blue);
     font-weight: var(--font-weight-semibold);
     margin: 0;
 }
 
 .Description p {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-standart);
     color: var(--c-dark-gray);
     line-height: 1.6;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .Content {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .ImageContainer {
+        flex: 0 0 auto;
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .HistoricalFigureDetailPage {
+        padding: 24px 16px;
+    }
+    
+    .Content {
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .ImageContainer {
+        height: 300px;
+    }
+    
+    .Name {
+        font-size: 24px;
+    }
+    
+    .Description h2 {
+        font-size: 20px;
+    }
 } 
