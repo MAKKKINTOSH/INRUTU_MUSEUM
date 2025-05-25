@@ -7,6 +7,10 @@ import LebedevImage from "../../shared/static/images/lebedev.png"
 import PascalImage from "../../shared/static/images/pascal.png"
 import BabbageImage from "../../shared/static/images/babbage.png"
 import LavlaysImage from "../../shared/static/images/lavleys.png"
+import GermanImage from "../../shared/static/images/german.png"
+import ConradImage from "../../shared/static/images/conrad.png"
+import GraysImage from "../../shared/static/images/grays.png"
+import RitchiImage from "../../shared/static/images/ritchi.png"
 export const historicalFigures = [
     {
         id: 1,
@@ -14,7 +18,7 @@ export const historicalFigures = [
         years: "1859-1906",
         image: PopovImage,
         description: "выдающийся русский физик и изобретатель, один из создателей радио. Родился в 1859 году, с детства проявлял интерес к технике и естественным наукам. Окончил физико-математический факультет Петербургского университета, после чего преподавал и занимался исследованиями в области электричества и электромагнитных волн.",
-        centuryId: 20
+        centuryId: 19
     },
     {
         id: 2,
@@ -60,7 +64,7 @@ export const historicalFigures = [
         id: 7,
         name: "Герман Холлерит",
         years: "1860-1929",
-        image: vovaImage,
+        image: GermanImage,
         description: "Американский инженер и изобретатель. Создатель первой электромеханической счётной машины - табулятора.",
         centuryId: 19
     },
@@ -68,7 +72,7 @@ export const historicalFigures = [
         id: 8,
         name: "Конрад Цузе",
         years: "1910-1995",
-        image: vovaImage,
+        image: ConradImage,
         description: "Немецкий инженер, пионер компьютеростроения. Создатель первого программируемого компьютера.",
         centuryId: 20
     },
@@ -76,7 +80,7 @@ export const historicalFigures = [
         id: 9,
         name: "Грейс Хоппер",
         years: "1906-1992",
-        image: jannaImage,
+        image: GraysImage,
         description: "Американский учёный и контр-адмирал флота США. Одна из первых программистов компьютера Harvard Mark I.",
         centuryId: 20
     },
@@ -84,7 +88,7 @@ export const historicalFigures = [
         id: 10,
         name: "Деннис Ритчи",
         years: "1941-2011",
-        image: lenaImage,
+        image: RitchiImage,
         description: "Американский учёный в области информатики, создатель языка программирования C и операционной системы UNIX.",
         centuryId: 20
     }

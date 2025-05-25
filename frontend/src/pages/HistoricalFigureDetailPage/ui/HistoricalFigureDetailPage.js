@@ -5,6 +5,8 @@ import {Breadcrumbs} from '../../../shared/ui/Breadcrumbs/Breadcrumbs';
 import vovaImage from "../../../shared/static/images/vova.png";
 import lenaImage from "../../../shared/static/images/lena.png";
 import jannaImage from "../../../shared/static/images/janna.png";
+import Popov2Image from "../../../shared/static/images/popov2.png";
+import Popov3Image from "../../../shared/static/images/popov3.png";
 
 export function HistoricalFigureDetailPage() {
     const {id} = useParams();
@@ -21,7 +23,7 @@ export function HistoricalFigureDetailPage() {
     ];
 
     // Массив изображений для галереи
-    const galleryImages = [figure.image, vovaImage, lenaImage, jannaImage];
+    const galleryImages = [figure.image, Popov2Image, Popov3Image];
 
     return (
         <>
