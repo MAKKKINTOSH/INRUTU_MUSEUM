@@ -1,21 +1,26 @@
 import vovaImage from "../../shared/static/images/vova.png"
 import jannaImage from "../../shared/static/images/janna.png"
 import lenaImage from "../../shared/static/images/lena.png"
-
+import PopovImage from "../../shared/static/images/popov.png"
+import NeymanImage from "../../shared/static/images/neyman.png"
+import LebedevImage from "../../shared/static/images/lebedev.png"
+import PascalImage from "../../shared/static/images/pascal.png"
+import BabbageImage from "../../shared/static/images/babbage.png"
+import LavlaysImage from "../../shared/static/images/lavleys.png"
 export const historicalFigures = [
     {
         id: 1,
-        name: "Алан Тьюринг",
-        years: "1912-1954",
-        image: lenaImage,
-        description: "Британский математик, логик, криптограф, оказавший существенное влияние на развитие информатики. Создатель машины Тьюринга и теста Тьюринга.",
+        name: "Попов Александр Степанович",
+        years: "1859-1906",
+        image: PopovImage,
+        description: "выдающийся русский физик и изобретатель, один из создателей радио. Родился в 1859 году, с детства проявлял интерес к технике и естественным наукам. Окончил физико-математический факультет Петербургского университета, после чего преподавал и занимался исследованиями в области электричества и электромагнитных волн.",
         centuryId: 20
     },
     {
         id: 2,
         name: "Джон фон Нейман",
         years: "1903-1957",
-        image: vovaImage,
+        image: NeymanImage,
         description: "Венгеро-американский математик, сделавший важный вклад в квантовую физику, квантовую логику, функциональный анализ, теорию множеств, информатику, экономику и другие отрасли науки.",
         centuryId: 20
     },
@@ -23,7 +28,7 @@ export const historicalFigures = [
         id: 3,
         name: "Сергей Лебедев",
         years: "1902-1974",
-        image: jannaImage,
+        image: LebedevImage,
         description: "Советский учёный в области электротехники и вычислительной техники, академик АН СССР, создатель первой в СССР и континентальной Европе электронной вычислительной машины.",
         centuryId: 20
     },
@@ -31,7 +36,7 @@ export const historicalFigures = [
         id: 4,
         name: "Блез Паскаль",
         years: "1623-1662",
-        image: vovaImage,
+        image: PascalImage,
         description: "Французский математик, механик, физик, литератор и философ. Создатель первой механической счётной машины.",
         centuryId: 17
     },
@@ -39,7 +44,7 @@ export const historicalFigures = [
         id: 5,
         name: "Чарльз Бэббидж",
         years: "1791-1871",
-        image: vovaImage,
+        image: BabbageImage,
         description: "Английский математик, изобретатель первой аналитической вычислительной машины. Считается отцом компьютера.",
         centuryId: 19
     },
@@ -47,7 +52,7 @@ export const historicalFigures = [
         id: 6,
         name: "Ада Лавлейс",
         years: "1815-1852",
-        image: lenaImage,
+        image: LavlaysImage,
         description: "Английский математик. Известна прежде всего созданием описания вычислительной машины, проект которой был разработан Чарльзом Бэббиджем.",
         centuryId: 19
     },
