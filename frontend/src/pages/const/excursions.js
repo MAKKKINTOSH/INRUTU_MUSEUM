@@ -1,4 +1,4 @@
-import vovaImage from "../../shared/static/images/vova.png";
+import InrtuImage from "../../shared/static/images/inrtu.png";
 
 export const excursions = [
     {
@@ -7,7 +7,7 @@ export const excursions = [
         description: "Погрузитесь в историю развития компьютеров от первых механических устройств до современных суперкомпьютеров. Узнайте о ключевых изобретениях и технологических прорывах.",
         duration: "1.5 часа",
         price: "300 ₽",
-        image: vovaImage,
+        image: InrtuImage,
         location: "Музей ИрНИТУ, корпус В"
     },
     {
@@ -16,7 +16,7 @@ export const excursions = [
         description: "Экскурсия посвящена развитию микропроцессоров. Вы увидите, как менялись технологии производства, архитектура и производительность процессоров на протяжении десятилетий.",
         duration: "1 час",
         price: "250 ₽",
-        image: vovaImage,
+        image: InrtuImage,
         location: "Зал вычислительной техники, корпус В"
     },
     {
@@ -25,7 +25,7 @@ export const excursions = [
         description: "Познакомьтесь с последними достижениями в области вычислительной техники. Узнайте о квантовых компьютерах, искусственном интеллекте и машинном обучении.",
         duration: "2 часа",
         price: "400 ₽",
-        image: vovaImage,
+        image: InrtuImage,
         location: "Лаборатория робототехники, корпус А"
     },
     {
@@ -34,7 +34,7 @@ export const excursions = [
         description: "Экскурсия рассказывает о выдающихся ученых и изобретателях, чьи открытия изменили мир вычислительной техники. От Чарльза Бэббиджа до современных инженеров.",
         duration: "1.5 часа",
         price: "300 ₽",
-        image: vovaImage,
+        image: InrtuImage,
         location: "Зал исторических личностей, корпус В"
     }
 ]; 
