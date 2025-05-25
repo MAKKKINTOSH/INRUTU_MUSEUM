@@ -3,9 +3,9 @@ import {artifacts} from "../../const/artifacts"
 import {useParams, useSearchParams} from "react-router-dom"
 import {Breadcrumbs} from "../../../shared/ui/Breadcrumbs/Breadcrumbs"
 import {museumSections} from "../../const/sections"
-import vovaImage from "../../../shared/static/images/vova.png"
-import lenaImage from "../../../shared/static/images/lena.png"
-import jannaImage from "../../../shared/static/images/janna.png"
+import calculator2Image from "../../../shared/static/images/calculator2.jpg"
+import calculator3Image from "../../../shared/static/images/calculator3.jpg"
+import calculator4Image from "../../../shared/static/images/calculator4.jpg"
 
 export function ArtifactDetailPage() {
     const {id} = useParams()
@@ -40,7 +40,7 @@ export function ArtifactDetailPage() {
     }
 
     // Массив изображений для галереи
-    const galleryImages = [artifact.image, vovaImage, lenaImage, jannaImage]
+    const galleryImages = [artifact.image, calculator2Image, calculator3Image, calculator4Image]
 
     return (
         <>
@@ -78,7 +78,8 @@ export function ArtifactDetailPage() {
                         <div className={Styles.Location}>
                             <h2>Расположение</h2>
                             <p>Зал: {museumSections[artifact.hall]?.title}</p>
-                            <p>Комната: {museumSections[artifact.hall]?.sections.find(s => s.id === artifact.room)?.title}</p>
+                            <p>Комната: В-108</p>
+                            {/* <p>Комната: {museumSections[artifact.room]?.sections.find(s => s.id === artifact.room)?.title}</p> */}
                         </div>
                     </div>
                 </div>

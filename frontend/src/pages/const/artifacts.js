@@ -1,12 +1,14 @@
 import routerImage from "../../shared/static/images/router.jpg"
+import CalculatorImage from "../../shared/static/images/calculator.jpg"
+import FirstevmImage from "../../shared/static/images/firstevm.png"
 
 export const artifacts = [
     {
         id: 1,
-        title: "Ламповый компьютер",
-        year: "1946",
-        image: routerImage,
-        description: "Один из первых электронных компьютеров, использующий электронные лампы для обработки данных",
+        title: "Электроника Б3-18М",
+        year: "1978",
+        image: CalculatorImage,
+        description: "Один из первых Позволяет выполнять четыре арифметические операции, а также возводить в квадрат и извлекать квадратный корень, в два приёма возводить в любую степень в пределах восьми разрядов, вычислять обратные величины, логарифмы и антилогарифмы, тригонометрические функции, проводить операции с памятью.",
         hall: "inrtuHalls",
         room: "museum",
         centuryId: 20
@@ -25,7 +27,7 @@ export const artifacts = [
         id: 3,
         title: "Первая ЭВМ",
         year: "1951",
-        image: routerImage,
+        image: FirstevmImage,
         description: "Первая электронно-вычислительная машина, созданная в СССР",
         hall: "inrtuHalls",
         room: "museum",
