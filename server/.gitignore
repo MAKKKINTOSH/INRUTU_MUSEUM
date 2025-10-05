@@ -150,6 +150,7 @@ Thumbs.db
 # Media files
 media/
 static/
+staticfiles/
 
 # Docker
 docker-compose.override.yml
