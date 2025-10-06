@@ -1,17 +1,22 @@
 import axios from "axios";
 
-// Base URL can be overridden via env. Keep trailing slashes consistent
+// Базовый URL API (по умолчанию localhost, можно переопределить через .env)
 const DEFAULT_API_BASE = "http://localhost:8000/api";
 const API_BASE_URL = (process.env.REACT_APP_API_URL || DEFAULT_API_BASE).replace(/\/$/, "");
 
-// Axios instance
+// Создание экземпляра axios с предустановленным baseURL и заголовками
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: false,
 });
 
-// Helpers
+// ======================
+// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+// ======================
+
+// buildQuery(params): формирует строку запроса (query string) из объекта параметров
+// Возвращает строку вида "?key=value&key2=value2" или "" если параметров нет
 const buildQuery = (params) => {
   if (!params || typeof params !== "object") return "";
   const usp = new URLSearchParams();
@@ -27,26 +32,44 @@ const buildQuery = (params) => {
   return qs ? `?${qs}` : "";
 };
 
-const endpoint = (path) => `${API_BASE_URL}${path.startsWith("/") ? "" : "/"}${path}`.replace(/\/$/, "");
+// endpoint(path): добавляет путь ресурса к базовому URL API
+// Возвращает строку полного URL без лишних слешей
+const endpoint = (path) =>
+  `${API_BASE_URL}${path.startsWith("/") ? "" : "/"}${path}`.replace(/\/$/, "");
 
-// Generic REST helpers
+// ======================
+// ОБЩИЕ REST МЕТОДЫ
+// ======================
+
+// list(resourcePath, params):
+// Отправляет GET-запрос для получения списка ресурсов с возможными фильтрами.
+// Возвращает данные (data) — обычно массив объектов или пагинированный список.
 const list = async (resourcePath, params) => {
   const url = `${endpoint(resourcePath)}/${buildQuery(params)}`.replace(/\/\?$/, "");
   const { data } = await apiClient.get(url);
   return data;
 };
 
+// retrieve(resourcePath, id, params):
+// Отправляет GET-запрос для получения одного объекта по его ID.
+// Возвращает объект данных (data) — один ресурс.
 const retrieve = async (resourcePath, id, params) => {
   const url = `${endpoint(resourcePath)}/${encodeURIComponent(id)}/${buildQuery(params)}`.replace(/\/\?$/, "");
   const { data } = await apiClient.get(url);
   return data;
 };
 
+// create(resourcePath, payload):
+// Отправляет POST-запрос для создания нового ресурса.
+// Возвращает созданный объект данных (data) — как правило, объект с присвоенным ID.
 const create = async (resourcePath, payload) => {
   const { data } = await apiClient.post(`${endpoint(resourcePath)}/`, payload);
   return data;
 };
 
+// update(resourcePath, id, payload, { partial = true } = {}):
+// Отправляет PATCH (по умолчанию) или PUT запрос для обновления ресурса.
+// Возвращает обновлённый объект данных (data).
 const update = async (resourcePath, id, payload, { partial = true } = {}) => {
   const url = `${endpoint(resourcePath)}/${encodeURIComponent(id)}/`;
   const method = partial ? "patch" : "put";
@@ -54,13 +77,19 @@ const update = async (resourcePath, id, payload, { partial = true } = {}) => {
   return data;
 };
 
+// remove(resourcePath, id):
+// Отправляет DELETE-запрос для удаления ресурса.
+// Возвращает true при успешном удалении.
 const remove = async (resourcePath, id) => {
   const url = `${endpoint(resourcePath)}/${encodeURIComponent(id)}/`;
   await apiClient.delete(url);
   return true;
 };
 
-// Resources (from Django routers)
+// ======================
+// СЛОВАРЬ РЕСУРСОВ
+// ======================
+
 const RESOURCES = {
   // shared
   images: "/shared/images",
@@ -75,16 +104,20 @@ const RESOURCES = {
   artifacts: "/artifacts/artifacts",
 };
 
-// Shared: Images
+// ======================
+// API: КОНКРЕТНЫЕ РЕСУРСЫ
+// ======================
+
+// ImagesAPI — работа с изображениями
 export const ImagesAPI = {
-  list: (params) => list(RESOURCES.images, params),
-  get: (id, params) => retrieve(RESOURCES.images, id, params),
-  create: (payload) => create(RESOURCES.images, payload),
-  update: (id, payload, opts) => update(RESOURCES.images, id, payload, opts),
-  remove: (id) => remove(RESOURCES.images, id),
+  list: (params) => list(RESOURCES.images, params),             // Возвращает список изображений
+  get: (id, params) => retrieve(RESOURCES.images, id, params),  // Возвращает одно изображение по ID
+  create: (payload) => create(RESOURCES.images, payload),       // Возвращает созданное изображение
+  update: (id, payload, opts) => update(RESOURCES.images, id, payload, opts), // Возвращает обновлённое изображение
+  remove: (id) => remove(RESOURCES.images, id),                 // Возвращает true после удаления
 };
 
-// Shared: 3D Models
+// Models3DAPI — работа с 3D-моделями
 export const Models3DAPI = {
   list: (params) => list(RESOURCES.models3d, params),
   get: (id, params) => retrieve(RESOURCES.models3d, id, params),
@@ -93,7 +126,7 @@ export const Models3DAPI = {
   remove: (id) => remove(RESOURCES.models3d, id),
 };
 
-// Historical Figures: Science Fields
+// ScienceFieldsAPI — работа с научными областями
 export const ScienceFieldsAPI = {
   list: (params) => list(RESOURCES.scienceFields, params),
   get: (id, params) => retrieve(RESOURCES.scienceFields, id, params),
@@ -102,7 +135,7 @@ export const ScienceFieldsAPI = {
   remove: (id) => remove(RESOURCES.scienceFields, id),
 };
 
-// Historical Figures
+// HistoricalFiguresAPI — работа с историческими личностями
 export const HistoricalFiguresAPI = {
   list: (params) => list(RESOURCES.historicalFigures, params),
   get: (id, params) => retrieve(RESOURCES.historicalFigures, id, params),
@@ -111,7 +144,7 @@ export const HistoricalFiguresAPI = {
   remove: (id) => remove(RESOURCES.historicalFigures, id),
 };
 
-// Artifacts: Hall Categories
+// HallCategoriesAPI — категории залов
 export const HallCategoriesAPI = {
   list: (params) => list(RESOURCES.hallCategories, params),
   get: (id, params) => retrieve(RESOURCES.hallCategories, id, params),
@@ -120,7 +153,7 @@ export const HallCategoriesAPI = {
   remove: (id) => remove(RESOURCES.hallCategories, id),
 };
 
-// Artifacts: Halls
+// HallsAPI — залы
 export const HallsAPI = {
   list: (params) => list(RESOURCES.halls, params),
   get: (id, params) => retrieve(RESOURCES.halls, id, params),
@@ -129,7 +162,7 @@ export const HallsAPI = {
   remove: (id) => remove(RESOURCES.halls, id),
 };
 
-// Artifacts: Artifact Categories
+// ArtifactCategoriesAPI — категории артефактов
 export const ArtifactCategoriesAPI = {
   list: (params) => list(RESOURCES.artifactCategories, params),
   get: (id, params) => retrieve(RESOURCES.artifactCategories, id, params),
@@ -138,7 +171,7 @@ export const ArtifactCategoriesAPI = {
   remove: (id) => remove(RESOURCES.artifactCategories, id),
 };
 
-// Artifacts
+// ArtifactsAPI — артефакты
 export const ArtifactsAPI = {
   list: (params) => list(RESOURCES.artifacts, params),
   get: (id, params) => retrieve(RESOURCES.artifacts, id, params),
@@ -147,10 +180,13 @@ export const ArtifactsAPI = {
   remove: (id) => remove(RESOURCES.artifacts, id),
 };
 
-// Convenience export: grouped APIs and generic helpers
+// ======================
+// ОБЩИЙ ЭКСПОРТ API
+// ======================
+// Возвращает сгруппированные API-методы и утилиты.
 export const API = {
-  baseURL: API_BASE_URL,
-  client: apiClient,
+  baseURL: API_BASE_URL,   // Базовый URL API
+  client: apiClient,       // Экземпляр axios
   images: ImagesAPI,
   models3d: Models3DAPI,
   scienceFields: ScienceFieldsAPI,
@@ -159,10 +195,7 @@ export const API = {
   halls: HallsAPI,
   artifactCategories: ArtifactCategoriesAPI,
   artifacts: ArtifactsAPI,
-  util: { buildQuery },
+  util: { buildQuery },    // Вспомогательная функция для query-параметров
 };
 
 export default API;
-
-
-
