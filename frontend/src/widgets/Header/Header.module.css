@@ -1,7 +1,7 @@
 .Header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--color-wrapper-border);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -34,7 +34,6 @@
     font-size: var(--font-size-standart);
     font-weight: var(--font-weight-light);
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -47,13 +46,14 @@
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--c-blue);
+    background: var(--color-accent);
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
 .NavSection a:hover {
-    color: var(--c-blue);
+    color: var(--color-accent);
+    background-color: var(--color-block-background-gray);
 }
 
 .NavSection a:hover::before {
@@ -61,7 +61,7 @@
 }
 
 .NavSection a.active {
-    color: var(--c-blue);
+    color: var(--color-accent);
     font-weight: var(--font-weight-semibold);
 }
 
