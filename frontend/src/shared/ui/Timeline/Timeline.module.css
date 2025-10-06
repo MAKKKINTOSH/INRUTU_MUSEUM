@@ -3,39 +3,83 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 120px;
+    width: 140px;
     padding: 20px 0;
-    background-color: var(--c-white);
+    background-color: var(--color-wrapper);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
 }
 
 .century {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color var(--transition-medium), transform var(--transition-medium);
+    border-radius: var(--border-radius);
+    width: 100%;
 }
 
 .century:hover {
-    background-color: var(--c-gray);
+    background-color: var(--color-block-background-light-gray);
+    transform: translateX(4px);
 }
 
 .century.active {
-    background-color: var(--c-blue);
+    background-color: var(--color-accent);
 }
 
 .century.active .centuryLabel {
-    color: var(--c-white);
+    color: var(--color-wrapper);
+    font-weight: var(--font-weight-semibold);
 }
 
 .centuryLabel {
     font-size: var(--font-size-standart);
-    color: var(--c-dark-blue);
-    margin-bottom: 5px;
+    color: var(--color-secondary);
+    margin-bottom: 6px;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .centuryLine {
+    width: 60%;
     height: 2px;
-    background-color: var(--c-dark-gray);
-    width: 100%;
-} 
+    background-color: var(--color-block-background-dark-gray);
+    border-radius: 1px;
+}
+
+/* Адаптив: горизонтальная линейка на мобильных */
+@media (max-width: 768px) {
+    .timeline {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        flex-direction: row;
+        width: 100%;
+        padding: 12px;
+        justify-content: center;
+        gap: 16px;
+        border-radius: var(--border-radius);
+        box-shadow: none;
+    }
+    .century {
+        padding: 6px 8px;
+    }
+    .centuryLabel {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+    .centuryLine {
+        width: 100%;
+        height: 2px;
+    }
+}

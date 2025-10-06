@@ -1,0 +1,95 @@
+.HomePage {
+    width: 100%;
+    background-color: var(--color-block-background-white);
+    overflow-x: hidden;
+    width: 60vw;
+    margin: 0 auto;
+}
+
+.WelcomeSection {
+    position: relative;
+    display: flex;
+    min-height: 600px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    align-items: stretch;
+}
+
+/* Картинка */
+.WelcomeSection {
+    position: relative;
+    display: flex;
+    min-height: 600px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+/* Картинка на весь блок */
+.WelcomeImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* растянуть на весь блок */
+    height: 100%;
+    background-image: url('../../shared/assets/images/images.jpeg');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* Текстовый блок слева с резким градиентом */
+.WelcomeText {
+    position: relative;
+    z-index: 1;
+    width: 55%; /* оставляем примерно половину блока для текста */
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* выравнивание по верхнему краю */
+    text-align: left; /* левый край */
+    background: linear-gradient(
+        to right,
+        var(--color-block-background-white) 92%, /* резкий серый */
+        rgba(245, 247, 250, 0) 100%  /* полностью прозрачный */
+    );
+}
+
+.WelcomeText h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+}
+
+.WelcomeText p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-ink);
+    opacity: 0.85;
+    margin: 0 0 20px 0;
+}
+
+/* Контент секций */
+.ContentSection {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.ContentSection:last-child {
+    margin-bottom: 0;
+}
+
+.HistoricalFiguresSection {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

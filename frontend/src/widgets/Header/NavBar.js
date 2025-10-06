@@ -1,5 +1,4 @@
 import Styles from "./Header.module.css";
-import {SearchBar} from "./SearchBar";
 
 export function NavBar({navigationButtons}) {
 
@@ -12,7 +11,6 @@ export function NavBar({navigationButtons}) {
                     </a>
                 )}
             </div>
-            <SearchBar></SearchBar>
         </div>
     )
 }

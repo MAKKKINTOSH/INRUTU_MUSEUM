@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './Excursions.module.css';
-import { excursions } from '../const/excursions';
+import { excursions } from '../const УСТАРЕЛО/excursions';
 import { ExcursionCard } from './ExcursionCard/ExcursionCard';
-import { Breadcrumbs } from '../../shared/ui/Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
+import { routes } from '../../shared/const';
 
 export function Excursions() {
     const breadcrumbsLinks = [
-        ["Главная", "/home"],
-        ["Экскурсии", "/excursions"]
+        ["Главная", routes.home],
+        ["Экскурсии", routes.excursions]
     ];
 
     return (
