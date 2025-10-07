@@ -14,5 +14,3 @@ export default function BaseLayout({ children, onAdminClick }) {
     </div>
   );
 }
-
-
