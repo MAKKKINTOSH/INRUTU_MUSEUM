@@ -1,11 +1,21 @@
 .Layout {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: 100vh;
 }
 
+/* Шапка и подвал растягиваются на всю ширину */
+.Layout > :first-child,
+.Layout > :last-child {
+  width: 100%;
+}
+
+/* Основное тело */
 .Main {
   flex: 1 1 auto;
+  width: 70vw;              /* ограничиваем ширину */
+  margin: 0 auto;           /* центрируем */
+  display: flex;            /* для работы gap */
+  flex-direction: column;
+  gap: 4px;                 /* отступ между дочерними элементами */
 }
-
-
