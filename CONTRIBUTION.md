@@ -28,11 +28,6 @@ git add .
 git commit -m "add user authentication system"
 ```
 
-**Рекомендации по коммитам:**
-- Используйте conventional commits (feat:, fix:, docs:, style:, refactor:, test:, chore:)
-- Пишите понятные и информативные сообщения
-- Делайте коммиты часто и логически связанными
-
 ### 3. Синхронизация с origin master
 
 Перед созданием Pull Request необходимо синхронизировать ветку с master:

@@ -1,7 +1,7 @@
 .Footer {
     margin-top: 32px;
-    background: linear-gradient(to bottom, var(--c-white), var(--c-gray));
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: linear-gradient(to bottom, var(--color-block-background-white), var(--color-block-background-light-gray));
+    border-top: 1px solid var(--color-wrapper-border);
     padding: 1.5rem 0;
 }
 
@@ -40,13 +40,13 @@
     left: 0;
     width: 0;
     height: 1px;
-    background: var(--c-blue);
+    background: var(--color-accent);
     transition: width 0.3s ease;
 }
 
 .Links > a:hover,
 .Links > button:hover {
-    color: var(--c-blue);
+    color: var(--color-accent);
     transform: translateX(3px);
 }
 
