@@ -29,13 +29,17 @@ export function HomePage() {
         .then(([hallsData, figuresData]) => {
           if (!isMounted) return;
 
+          // Убеждаемся, что данные - это массивы
+          const hallsArray = Array.isArray(hallsData) ? hallsData : [];
+          const figuresArray = Array.isArray(figuresData) ? figuresData : [];
+
           // --- Группировка залов ---
           const grouped = { hardware: [], software: [] };
-          (hallsData || []).forEach((hall) => {
+          hallsArray.forEach((hall) => {
             const widget = {
               id: hall.id,
               text: hall.name,
-              imageUrl: hall.image?.url || "",
+              imageUrl: hall.image?.image_url || hall.image?.image || "",
               link: `${routes.halls}?hallId=${hall.id}`,
             };
             const category = hall.category?.name?.toLowerCase() || "";
@@ -44,19 +48,21 @@ export function HomePage() {
           });
 
           // --- Обработка исторических личностей ---
-          const mappedPersons = (figuresData || []).map((f) => ({
-            imageUrl: f.images?.[0]?.url || "",
+          const mappedPersons = figuresArray.map((f) => ({
+            imageUrl: f.images?.[0]?.image_url || f.images?.[0]?.image || "",
             personName: f.full_name,
             link: `${routes.historicalFigures}/${f.id}`,
           }));
 
           // --- Устанавливаем в состояние ---
-          setWidgetsByMuseum({
-            hardware: grouped.hardware.slice(0, 6),
-            software: grouped.software.slice(0, 6),
-          });
-          setPersons(mappedPersons.slice(0, 12));
-          setLoading(false);
+          if (isMounted) {
+            setWidgetsByMuseum({
+              hardware: grouped.hardware.slice(0, 6),
+              software: grouped.software.slice(0, 6),
+            });
+            setPersons(mappedPersons.slice(0, 12));
+            setLoading(false);
+          }
         })
         .catch((err) => {
           console.error("Ошибка при загрузке данных:", err);
@@ -134,12 +140,18 @@ export function HomePage() {
   */
 
 
-  // --- Состояние загрузки и ошибки ---
-  if (loading) return <div className={Styles.HomePage}>Загрузка...</div>;
-  if (error) return <div className={Styles.HomePage}>{error}</div>;
+  // --- Состояние ошибки ---
+  if (error) {
+    return (
+      <div className={Styles.HomePage}>
+        <div className={Styles.ErrorMessage}>{error}</div>
+      </div>
+    );
+  }
 
   return (
-    <div className={Styles.HomePage}>
+    <div className={`${Styles.HomePage} ${loading ? Styles.Loading : ""}`}>
+      {loading && <div className={Styles.LoadingOverlay}><div className={Styles.Spinner}></div></div>}
       <section className={Styles.WelcomeSection}>
         <div className={Styles.WelcomeImage}></div>
         <div className={Styles.WelcomeText}>

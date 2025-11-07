@@ -7,9 +7,34 @@ const API_BASE_URL = (process.env.REACT_APP_API_URL || DEFAULT_API_BASE).replace
 // Создание экземпляра axios с предустановленным baseURL и заголовками
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  headers: { "Content-Type": "application/json" },
+  headers: { 
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
   withCredentials: false,
 });
+
+// Добавляем interceptor для обработки ошибок
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Обработка ошибок CORS и других сетевых ошибок
+    if (error.message === "Network Error" || error.code === "ERR_NETWORK") {
+      console.error("Ошибка сети. Проверьте, что сервер запущен и доступен.");
+      return Promise.reject(new Error("Ошибка сети. Проверьте подключение к серверу."));
+    }
+    
+    // Обработка ошибок HTTP
+    if (error.response) {
+      // Сервер ответил с кодом ошибки
+      const { status, data } = error.response;
+      console.error(`Ошибка API (${status}):`, data);
+      return Promise.reject(error);
+    }
+    
+    return Promise.reject(error);
+  }
+);
 
 // ======================
 // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
@@ -44,10 +69,13 @@ const endpoint = (path) =>
 // list(resourcePath, params):
 // Отправляет GET-запрос для получения списка ресурсов с возможными фильтрами.
 // Возвращает данные (data) — обычно массив объектов или пагинированный список.
+// Если ответ пагинированный (DRF формат), возвращает массив results, иначе сам data.
 const list = async (resourcePath, params) => {
   const url = `${endpoint(resourcePath)}/${buildQuery(params)}`.replace(/\/\?$/, "");
   const { data } = await apiClient.get(url);
-  return data;
+  // DRF возвращает пагинированные ответы в формате {count, next, previous, results}
+  // Если есть поле results, возвращаем его, иначе возвращаем data как есть
+  return Array.isArray(data) ? data : (data.results || data);
 };
 
 // retrieve(resourcePath, id, params):
