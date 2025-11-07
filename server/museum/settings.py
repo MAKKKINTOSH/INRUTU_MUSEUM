@@ -11,26 +11,27 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config, Config, RepositoryEnv
+import environ
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Настройка для чтения .env файла из директории museum
-config = Config(RepositoryEnv(BASE_DIR / 'museum' / '.env'))
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-h8zy_q3v)i!^4c3n09nc*nrow&1bvfm9rv8gluq8f2@76z(h%6')
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-h8zy_q3v)i!^4c3n09nc*nrow&1bvfm9rv8gluq8f2@76z(h%6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = env('DEBUG', default=False)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third party apps
+    "corsheaders",
     "rest_framework",
     "django_filters",
     "drf_spectacular",
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -88,11 +91,11 @@ WSGI_APPLICATION = "museum.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config('DB_NAME', default='museum_db'),
-        "USER": config('DB_USER', default='museum_user'),
-        "PASSWORD": config('DB_PASSWORD', default='museum_password'),
-        "HOST": config('DB_HOST', default='localhost'),
-        "PORT": config('DB_PORT', default='5432'),
+        "NAME": env('DB_NAME', default='museum_db'),
+        "USER": env('DB_USER', default='postgres'),
+        "PASSWORD": env('DB_PASSWORD', default='postgres'),
+        "HOST": env('DB_HOST', default='localhost'),
+        "PORT": env('DB_PORT', default='5432'),
     }
 }
 
@@ -201,3 +204,23 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 ADMIN_SITE_HEADER = "Виртуальный музей вычислительной техники"
 ADMIN_SITE_TITLE = "Администрирование музея"
 ADMIN_INDEX_TITLE = "Панель управления"
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]

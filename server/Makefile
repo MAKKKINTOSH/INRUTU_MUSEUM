@@ -16,6 +16,7 @@ help:
 	@echo "make restart 				- Downs and then ups containers from docker compose file"
 
 	@echo "make upload-dump	name=name		- Upload dump from directory db_dumps"
+	@echo "make export-dump	name=name		- Export dump to directory db_dumps"
 
 # ---------- Docker Compose ----------
 build:
@@ -39,6 +40,10 @@ upload-dump:
 	@$(POSTGRES_CONT) psql -U postgres -c "CREATE DATABASE $(database_name);"
 	@echo "Applying $(name) dump..."
 	@$(POSTGRES_CONT) bash -c "pg_restore -e -v -U postgres -Fc --no-owner --no-privileges -d $(database_name) /dump/$(name)"
+
+download-dump:
+	@echo "Exporting '$(database_name)' database to $(name)..."
+	@$(POSTGRES_CONT) pg_dump -U postgres -Fc --no-owner --no-privileges -d $(database_name) -f /dump/$(name)
 
 upload-text-dump:
 	@echo "Recreating '$(database_name)' database..."

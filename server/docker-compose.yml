@@ -1,5 +1,21 @@
 
 services:
+  museum_backend:
+    container_name: museum_backend
+    build: .
+    env_file:
+      - ./.env
+      - ./museum/.env
+    networks:
+      - museum_network
+    depends_on:
+      museum_db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./media:/app/media
+      
   museum_db:
     container_name: museum_db
     image: postgres:15
