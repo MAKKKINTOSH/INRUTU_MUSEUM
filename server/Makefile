@@ -45,10 +45,3 @@ download-dump:
 	@echo "Exporting '$(database_name)' database to $(name)..."
 	@$(POSTGRES_CONT) pg_dump -U postgres -Fc --no-owner --no-privileges -d $(database_name) -f /dump/$(name)
 
-upload-text-dump:
-	@echo "Recreating '$(database_name)' database..."
-	@$(POSTGRES_CONT) psql -U postgres -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '$(database_name)';"
-	@$(POSTGRES_CONT) psql -U postgres -c "DROP DATABASE IF EXISTS $(database_name);"
-	@$(POSTGRES_CONT) psql -U postgres -c "CREATE DATABASE $(database_name);"
-	@echo "Applying $(name) dump..."
-	@$(POSTGRES_CONT) bash -c "psql -e -v -U postgres -d $(database_name) -f /dump/$(name)"
