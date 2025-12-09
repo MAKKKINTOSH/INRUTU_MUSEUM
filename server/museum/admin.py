@@ -5,8 +5,8 @@ from django.utils.html import format_html
 
 
 # Настройка заголовков админ-панели
-admin.site.site_header = "Виртуальный музей вычислительной техники"
-admin.site.site_title = "Администрирование музея"
+admin.site.site_header = "Музей вычислительной техники ИрНИТУ"
+admin.site.site_title = "Музей вычислительной техники ИрНИТУ"
 admin.site.index_title = "Панель управления"
 
 

@@ -14,14 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+from django.contrib import admin as django_admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
+# Импортируем настройки админ-панели (используем алиас, чтобы не конфликтовать с django.contrib.admin)
+import museum.admin  # noqa: F401
+
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", django_admin.site.urls),
     
     # API URLs
     path("api/shared/", include("shared.urls")),
