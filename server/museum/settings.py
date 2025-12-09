@@ -70,7 +70,7 @@ ROOT_URLCONF = "museum.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -199,6 +199,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Static files settings (локальное хранение для разработки)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Admin settings
 ADMIN_SITE_HEADER = "Виртуальный музей вычислительной техники"
