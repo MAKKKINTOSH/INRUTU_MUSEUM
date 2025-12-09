@@ -1,29 +1,84 @@
+import React, { useState, useEffect } from 'react';
 import Styles from './HistoricalFigureDetailPage.module.css';
 import {useParams} from 'react-router-dom';
-import {historicalFigures} from '../../const/historicalFigures';
-import {Breadcrumbs} from '../../shared/ui/Breadcrumbs/Breadcrumbs';
-import vovaImage from "../../../shared/static/images/vova.png";
-import lenaImage from "../../../shared/static/images/lena.png";
-import jannaImage from "../../../shared/static/images/janna.png";
-import Popov2Image from "../../../shared/static/images/popov2.png";
-import Popov3Image from "../../../shared/static/images/popov3.png";
+import {HistoricalFiguresAPI} from '../../shared/const/api';
+import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
+import {routes} from '../../shared/const';
 
 export function HistoricalFigureDetailPage() {
     const {id} = useParams();
-    const figure = historicalFigures.find(f => f.id === parseInt(id));
+    const [figure, setFigure] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-    if (!figure) {
-        return <div>Историческая личность не найдена</div>;
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadFigure = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const data = await HistoricalFiguresAPI.get(id);
+                if (isMounted) {
+                    setFigure(data);
+                    setLoading(false);
+                }
+            } catch (err) {
+                console.error('Ошибка при загрузке исторической личности:', err);
+                if (isMounted) {
+                    setError('Не удалось загрузить данные исторической личности.');
+                    setLoading(false);
+                }
+            }
+        };
+
+        loadFigure();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [id]);
+
+    if (loading) {
+        return (
+            <div className={Styles.HistoricalFigureDetailPage}>
+                <div className={Styles.Content}>
+                    <div>Загрузка...</div>
+                </div>
+            </div>
+        );
     }
 
-    const breadcrumbsLinks = [
-        ["Главная", "/home"],
-        ["Исторические личности", "/historical_figures"],
-        [figure.name, `/historical_figure/${figure.id}`]
-    ];
+    if (error || !figure) {
+        return (
+            <div className={Styles.HistoricalFigureDetailPage}>
+                <div className={Styles.Content}>
+                    <div>{error || 'Историческая личность не найдена'}</div>
+                </div>
+            </div>
+        );
+    }
 
-    // Массив изображений для галереи
-    const galleryImages = [figure.image, Popov2Image, Popov3Image];
+    // Формируем строку с годами жизни
+    const yearsString = figure.birth_year && figure.death_year 
+        ? `${figure.birth_year} - ${figure.death_year}`
+        : figure.birth_year 
+        ? `род. ${figure.birth_year}`
+        : '';
+
+    // Получаем изображения из API
+    const images = figure.images && figure.images.length > 0
+        ? figure.images.map(img => img.image_url || img.image || '')
+        : [];
+
+    const mainImage = images[selectedImageIndex] || images[0] || '';
+
+    const breadcrumbsLinks = [
+        ["Главная", routes.home],
+        ["Исторические личности", routes.historicalFigures],
+        [figure.full_name, `${routes.historicalFigures}/${figure.id}`]
+    ];
 
     return (
         <>
@@ -32,31 +87,34 @@ export function HistoricalFigureDetailPage() {
                 <div className={Styles.Content}>
                     <div className={Styles.ImageGallery}>
                         <div className={Styles.MainImage}>
-                            <img src={figure.image} alt={figure.name} className={Styles.Image}/>
+                            {mainImage && (
+                                <img 
+                                    src={mainImage} 
+                                    alt={figure.full_name} 
+                                    className={Styles.Image}
+                                />
+                            )}
                         </div>
-                        <div className={Styles.Thumbnails}>
-                            {galleryImages.map((image, index) => (
-                                <div 
-                                    key={index} 
-                                    className={Styles.Thumbnail}
-                                    onClick={() => {
-                                        const mainImage = document.querySelector(`.${Styles.MainImage} img`);
-                                        if (mainImage) {
-                                            mainImage.src = image;
-                                        }
-                                    }}
-                                >
-                                    <img src={image} alt={`${figure.name} - фото ${index + 1}`} />
-                                </div>
-                            ))}
-                        </div>
+                        {images.length > 1 && (
+                            <div className={Styles.Thumbnails}>
+                                {images.map((image, index) => (
+                                    <div 
+                                        key={index} 
+                                        className={`${Styles.Thumbnail} ${selectedImageIndex === index ? Styles.Active : ''}`}
+                                        onClick={() => setSelectedImageIndex(index)}
+                                    >
+                                        <img src={image} alt={`${figure.full_name} - фото ${index + 1}`} />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                     <div className={Styles.Info}>
-                        <h1 className={Styles.Name}>{figure.name}</h1>
-                        <p className={Styles.Years}>{figure.years}</p>
+                        <h1 className={Styles.Name}>{figure.full_name}</h1>
+                        {yearsString && <p className={Styles.Years}>{yearsString}</p>}
                         <div className={Styles.Description}>
                             <h2>Биография</h2>
-                            <p>{figure.description}</p>
+                            <p>{figure.biography || figure.description || 'Биография не указана.'}</p>
                         </div>
                     </div>
                 </div>

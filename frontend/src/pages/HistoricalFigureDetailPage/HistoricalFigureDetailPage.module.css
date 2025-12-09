@@ -48,10 +48,16 @@
     border-radius: var(--border-radius);
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .Thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.Active {
+    border-color: var(--c-dark-blue);
     transform: scale(1.05);
 }
 
