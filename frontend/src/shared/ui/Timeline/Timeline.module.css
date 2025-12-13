@@ -1,62 +1,57 @@
 .timeline {
-    position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 140px;
+    position: relative;
+    width: 80px;
     padding: 20px 0;
-    background-color: var(--color-wrapper);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    z-index: 1000;
+    gap: 8px;
+    align-items: flex-start;
 }
 
 .century {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    padding: 8px 12px;
+    padding: 4px 0;
     background-color: transparent;
     border: none;
     cursor: pointer;
-    transition: background-color var(--transition-medium), transform var(--transition-medium);
-    border-radius: var(--border-radius);
+    transition: opacity var(--transition-medium);
     width: 100%;
+    position: relative;
 }
 
 .century:hover {
-    background-color: var(--color-block-background-light-gray);
-    transform: translateX(4px);
+    opacity: 0.7;
 }
 
 .century.active {
-    background-color: var(--color-accent);
+    opacity: 1;
 }
 
 .century.active .centuryLabel {
-    color: var(--color-wrapper);
     font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
 }
 
 .centuryLabel {
-    font-size: var(--font-size-standart);
+    font-size: 14px;
     color: var(--color-secondary);
-    margin-bottom: 6px;
-    text-align: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
     white-space: nowrap;
+    margin-right: 8px;
 }
 
 .centuryLine {
-    width: 60%;
-    height: 2px;
+    width: 2px;
+    height: 20px;
     background-color: var(--color-block-background-dark-gray);
     border-radius: 1px;
+    flex-shrink: 0;
 }
 
-/* Адаптив: горизонтальная линейка на мобильных */
 @media (max-width: 768px) {
     .timeline {
         position: relative;
