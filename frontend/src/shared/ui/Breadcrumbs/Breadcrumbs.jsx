@@ -2,40 +2,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Breadcrumbs.module.css';
 
-/**
- * Breadcrumbs component
- * Поддерживает два формата данных:
- * 1. items: массив объектов { label, to }
- * 2. links: массив массивов [label, path] (для обратной совместимости)
- */
 const Breadcrumbs = ({ items = [], links = [] }) => {
-  // Преобразуем links в items, если передан формат links
-  const breadcrumbsItems = items.length > 0 
-    ? items 
-    : links.map((link) => {
-        // Если link - это массив [label, path]
-        if (Array.isArray(link)) {
-          return {
-            label: link[0],
-            to: link[1]
-          };
-        }
-        // Если link - это объект
-        return link;
-      });
+  // Поддержка двух форматов:
+  // 1. items = [{label: "...", to: "..."}] (новый формат)
+  // 2. links = [["Label", "path"], ...] (старый формат)
+  
+  let breadcrumbsData = [];
+  
+  if (links.length > 0) {
+    // Преобразуем старый формат [["Label", "path"], ...] в новый
+    breadcrumbsData = links.map(([label, to], index) => {
+      // Последний элемент без ссылки
+      const isLast = index === links.length - 1;
+      return {
+        label,
+        to: isLast ? null : to
+      };
+    });
+  } else if (items.length > 0) {
+    breadcrumbsData = items;
+  }
 
-  if (!breadcrumbsItems.length) return null;
+  if (!breadcrumbsData.length) return null;
 
   return (
     <nav className={styles.breadcrumbs}>
-      {breadcrumbsItems.map((item, index) => (
+      {breadcrumbsData.map((item, index) => (
         <span key={index} className={styles.item}>
           {item.to ? (
             <Link to={item.to}>{item.label}</Link>
           ) : (
             <span className={styles.current}>{item.label}</span>
           )}
-          {index < breadcrumbsItems.length - 1 && <span className={styles.separator}>/</span>}
+          {index < breadcrumbsData.length - 1 && <span className={styles.separator}>•</span>}
         </span>
       ))}
     </nav>
