@@ -1,15 +1,18 @@
 
 .MuseumWidget {
     width: 100%;
-    height: 120px;
+    height: 100px;
+    min-height: 100px;
     background-size: cover;
     background-position: center center;
     border-radius: var(--border-radius);
-    transition: transform var(--transition-medium); /* плавный переход для масштаба */
+    transition: transform var(--transition-medium);
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .MuseumWidget:hover {
-    transform: scale(0.98, 0.95); /* корректный синтаксис */
+    transform: scale(0.98, 0.95); 
 }
 
 .ContentWrapper {
@@ -18,7 +21,7 @@
     border-radius: var(--border-radius);
     background-image: linear-gradient(to right, var(--c-dark-blue) 10%, rgba(0, 0, 0, 0) 100%);
     position: relative;
-    transition: background-image var(--transition-medium); /* плавный переход для градиента */
+    transition: background-image var(--transition-medium); 
 }
 
 .ContentWrapper:hover {
@@ -28,9 +31,11 @@
 .ContentWrapper p{
     position: absolute;
     top: 50%;
-    margin-top: -0.625em;
+    transform: translateY(-50%);
+    margin: 0;
     font-weight: bold;
     font-size: var(--font-size-big);
     padding-left: 80px;
     color: var(--c-white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
