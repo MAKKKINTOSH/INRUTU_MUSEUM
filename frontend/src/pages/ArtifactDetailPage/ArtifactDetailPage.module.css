@@ -69,6 +69,14 @@
     min-height: 100vh;
 }
 
+.PageTitle {
+    font-size: 32px;
+    color: var(--c-blue);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 24px 0;
+    padding: 0;
+}
+
 .Content {
     display: flex;
     gap: 40px;
@@ -132,17 +140,31 @@
     gap: 24px;
 }
 
-.Title {
-    font-size: 32px;
-    color: var(--c-dark-blue);
-    font-weight: var(--font-weight-semibold);
-    margin: 0;
+.Metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 8px;
 }
 
-.Year {
+.MetadataRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.MetadataLabel {
+    font-size: var(--font-size-standart);
+    color: var(--c-dark-blue);
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+}
+
+.MetadataValue {
     font-size: var(--font-size-standart);
     color: var(--c-dark-gray);
-    margin: 0;
+    flex: 1;
 }
 
 .Description, .Location {
