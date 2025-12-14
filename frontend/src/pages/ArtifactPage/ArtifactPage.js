@@ -69,7 +69,7 @@ export function ArtifactPage() {
 
     const breadcrumbsLinks = [
         ["Главная", "/home"],
-        ["Залы", "/halls"],
+        ["Залы", "/halls"]
     ]
     
 
@@ -143,7 +143,7 @@ export function ArtifactPage() {
     if (loading) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ArtifactPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>Загрузка артефактов...</p>
@@ -156,7 +156,7 @@ export function ArtifactPage() {
     if (error) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ArtifactPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>{error}</p>
@@ -169,7 +169,7 @@ export function ArtifactPage() {
     if (transformedArtifacts.length === 0) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ArtifactPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>Артефакты не найдены</p>
@@ -181,7 +181,7 @@ export function ArtifactPage() {
 
     return (
         <>
-            <Breadcrumbs links={breadcrumbsLinks}/>
+            <Breadcrumbs links={breadcrumbsLinks} />
             <div className={Styles.ArtifactPage}>
                 <div className={Styles.PageHeader}>
                     <h1 className={Styles.PageTitle}>

@@ -34,7 +34,7 @@ const Breadcrumbs = ({ items = [], links = [] }) => {
           ) : (
             <span className={styles.current}>{item.label}</span>
           )}
-          {index < breadcrumbsData.length - 1 && <span className={styles.separator}>•</span>}
+          {index < breadcrumbsData.length - 1 && <span className={styles.separator}>/</span>}
         </span>
       ))}
     </nav>

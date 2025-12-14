@@ -77,11 +77,11 @@ export function HistoricalFigureDetailPage() {
         ["Главная", "/home"],
         ["Исторические личности", "/historical_figures"],
         [figure.full_name, `/historical_figures/${figure.id}`]
-    ];
+    ]
 
     return (
         <>
-            <Breadcrumbs links={breadcrumbsLinks}/>
+            <Breadcrumbs links={breadcrumbsLinks} />
             <div className={Styles.HistoricalFigureDetailPage}>
                 <div className={Styles.Content}>
                     <div className={Styles.ImageGallery}>

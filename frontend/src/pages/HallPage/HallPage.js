@@ -1,52 +1,18 @@
-import { useState, useEffect, Fragment } from "react"
+import { useState, useEffect } from "react"
 import Styles from "./HallPage.module.css"
 import {MuseumWidgetList} from "../../shared/ui";
-import {useSearchParams, Link} from "react-router-dom";
 import Breadcrumbs from "../../shared/ui/Breadcrumbs/Breadcrumbs";
-import { HallsAPI, HallCategoriesAPI } from "../../shared/const/api";
-
-const breadcrumbsLinks = [
-    ["Главная", "/home"],
-    ["Залы", "/halls"]
-]
-
-function getHallPageHeader(selectedCategoryId, categories, halls) {
-    const hallSectionsLinks = [
-        {
-            name: "Все залы",
-            link: "/halls",
-            categoryId: null
-        },
-        ...categories.map(cat => ({
-            name: cat.name,
-            link: `/halls?categoryId=${cat.id}`,
-            categoryId: cat.id
-        }))
-    ]
-
-    return (
-        <div className={Styles.HallsHeader}>
-            <div className={Styles.Navigation}>
-                {hallSectionsLinks.map(({name, link, categoryId}) => (
-                    categoryId === selectedCategoryId ?
-                        <p className="text" key={name}>{name}</p>
-                        : <p className="text" key={name}><Link className="link" to={link}>{name}</Link></p>
-                ))}
-            </div>
-            <h1 className={Styles.PageTitle}>Выберите зал:</h1>
-        </div>
-    )
-}
+import { HallsAPI } from "../../shared/const/api";
 
 export function HallPage() {
-    const [params] = useSearchParams()
-    const categoryId = params.get("categoryId")
-    const hallId = params.get("hallId")
-
     const [halls, setHalls] = useState([])
-    const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const breadcrumbsLinks = [
+        ["Главная", "/home"],
+        ["Залы", "/halls"]
+    ]
 
     useEffect(() => {
         let isMounted = true
@@ -56,17 +22,11 @@ export function HallPage() {
             setError(null)
 
             try {
-
-                const categoriesData = await HallCategoriesAPI.list()
-                const categoriesList = categoriesData.results || categoriesData || []
-
-                const hallParams = categoryId ? { category: categoryId } : {}
-                const hallsData = await HallsAPI.list(hallParams)
+                const hallsData = await HallsAPI.list()
                 const hallsList = hallsData.results || hallsData || []
 
                 if (!isMounted) return
 
-                setCategories(categoriesList)
                 setHalls(hallsList)
             } catch (err) {
                 if (!isMounted) return
@@ -84,7 +44,7 @@ export function HallPage() {
         return () => {
             isMounted = false
         }
-    }, [categoryId])
+    }, [])
 
     const transformHallsToWidgets = (hallsList) => {
         return hallsList.map(hall => {
@@ -98,28 +58,10 @@ export function HallPage() {
         })
     }
 
-    const groupedHalls = halls.reduce((acc, hall) => {
-        const catId = hall.category?.id || "uncategorized"
-        const catName = hall.category?.name || "Без категории"
-        
-        if (!acc[catId]) {
-            acc[catId] = {
-                category: hall.category || { id: catId, name: catName },
-                halls: []
-            }
-        }
-        acc[catId].halls.push(hall)
-        return acc
-    }, {})
-
-    const filteredGroups = categoryId 
-        ? (groupedHalls[categoryId] ? { [categoryId]: groupedHalls[categoryId] } : {})
-        : groupedHalls
-
     if (loading) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ContentSection}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>Загрузка залов...</p>
@@ -132,7 +74,7 @@ export function HallPage() {
     if (error) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ContentSection}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>{error}</p>
@@ -145,9 +87,9 @@ export function HallPage() {
     if (halls.length === 0) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
-                {getHallPageHeader(categoryId, categories, halls)}
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ContentSection}>
+                    <h1 className={Styles.PageTitle}>Выберите зал:</h1>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>Залы не найдены</p>
                     </div>
@@ -156,22 +98,15 @@ export function HallPage() {
         )
     }
 
+    const widgets = transformHallsToWidgets(halls)
+
     return (
         <>
-            <Breadcrumbs links={breadcrumbsLinks}/>
-            {getHallPageHeader(categoryId, categories, halls)}
-            <section className={Styles.ContentSection}>
-                {Object.values(filteredGroups)
-                    .filter(group => group && group.halls && group.halls.length > 0)
-                    .map((group, i) => {
-                        const widgets = transformHallsToWidgets(group.halls)
-                        return (
-                            <Fragment key={group.category.id || i}>
-                                <MuseumWidgetList widgets={widgets}/>
-                            </Fragment>
-                        )
-                    })}
-            </section>
+            <Breadcrumbs links={breadcrumbsLinks} />
+            <div className={Styles.ContentSection}>
+                <h1 className={Styles.PageTitle}>Выберите зал:</h1>
+                <MuseumWidgetList widgets={widgets} />
+            </div>
         </>
     )
 }

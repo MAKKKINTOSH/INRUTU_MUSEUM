@@ -78,7 +78,7 @@ export function ArtifactDetailPage() {
 
     const breadcrumbsLinks = [
         ["Главная", "/home"],
-        ["Залы", "/halls"],
+        ["Залы", "/halls"]
     ]
     
     if (artifact) {
