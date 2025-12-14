@@ -3,6 +3,7 @@ export {NotFoundPage} from './NotFoundPage/NotFoundPage';
 export {ContactsPage} from './ContactsPage/ContactsPage';
 export {HallPage} from './HallPage/HallPage';
 export {ArtifactPage} from './ArtifactPage/ArtifactPage';
+export {ArtifactDetailPage} from './ArtifactDetailPage/ArtifactDetailPage';
 export {FeedbackPage} from './FeedbackPage/FeedbackPage';
 export {Excursions} from './Excursions/Excursions';
 export {HistoricalFiguresPage} from './HistoricalFiguresPage/HistoricalFiguresPage';
