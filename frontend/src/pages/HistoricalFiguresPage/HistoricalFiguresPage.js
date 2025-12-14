@@ -117,10 +117,8 @@ export function HistoricalFiguresPage() {
         return (
             <>
                 <Breadcrumbs links={breadcrumbsLinks} />
-                <div className={Styles.HistoricalFiguresPage}>
-                    <div style={{ textAlign: "center", padding: "40px" }}>
-                        <p>Загрузка исторических личностей...</p>
-                    </div>
+                <div className={Styles.LoadingOverlay}>
+                    <div className={Styles.Spinner}></div>
                 </div>
             </>
         );

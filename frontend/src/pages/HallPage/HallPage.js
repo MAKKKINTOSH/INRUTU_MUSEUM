@@ -62,10 +62,8 @@ export function HallPage() {
         return (
             <>
                 <Breadcrumbs links={breadcrumbsLinks} />
-                <div className={Styles.ContentSection}>
-                    <div style={{ textAlign: "center", padding: "40px" }}>
-                        <p>Загрузка залов...</p>
-                    </div>
+                <div className={Styles.LoadingOverlay}>
+                    <div className={Styles.Spinner}></div>
                 </div>
             </>
         )

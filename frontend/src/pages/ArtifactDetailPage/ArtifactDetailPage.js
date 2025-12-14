@@ -94,10 +94,8 @@ export function ArtifactDetailPage() {
         return (
             <>
                 <Breadcrumbs links={breadcrumbsLinks} />
-                <div className={Styles.ArtifactDetailPage}>
-                    <div style={{ textAlign: "center", padding: "40px" }}>
-                        <p>Загрузка артефакта...</p>
-                    </div>
+                <div className={Styles.LoadingOverlay}>
+                    <div className={Styles.Spinner}></div>
                 </div>
             </>
         )

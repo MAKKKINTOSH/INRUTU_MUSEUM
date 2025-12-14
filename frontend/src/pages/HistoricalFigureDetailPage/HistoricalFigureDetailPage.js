@@ -39,23 +39,33 @@ export function HistoricalFigureDetailPage() {
         };
     }, [id]);
 
+    const breadcrumbsLinks = [
+        ["Главная", "/home"],
+        ["Исторические личности", "/historical_figures"],
+        ...(figure ? [[figure.full_name, `/historical_figures/${figure.id}`]] : [])
+    ]
+
     if (loading) {
         return (
-            <div className={Styles.HistoricalFigureDetailPage}>
-                <div className={Styles.Content}>
-                    <div>Загрузка...</div>
+            <>
+                <Breadcrumbs links={breadcrumbsLinks} />
+                <div className={Styles.LoadingOverlay}>
+                    <div className={Styles.Spinner}></div>
                 </div>
-            </div>
+            </>
         );
     }
 
     if (error || !figure) {
         return (
-            <div className={Styles.HistoricalFigureDetailPage}>
-                <div className={Styles.Content}>
-                    <div>{error || 'Историческая личность не найдена'}</div>
+            <>
+                <Breadcrumbs links={breadcrumbsLinks} />
+                <div className={Styles.HistoricalFigureDetailPage}>
+                    <div className={Styles.Content}>
+                        <div>{error || 'Историческая личность не найдена'}</div>
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
@@ -72,12 +82,6 @@ export function HistoricalFigureDetailPage() {
         : [];
 
     const mainImage = images[selectedImageIndex] || images[0] || '';
-
-    const breadcrumbsLinks = [
-        ["Главная", "/home"],
-        ["Исторические личности", "/historical_figures"],
-        [figure.full_name, `/historical_figures/${figure.id}`]
-    ]
 
     return (
         <>
