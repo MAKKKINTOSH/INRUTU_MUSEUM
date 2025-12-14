@@ -8,14 +8,18 @@ export function ArtifactCard({ artifact }) {
         navigate(`/artifact/${artifact.id}`);
     };
 
+    const title = artifact.title || "Без названия";
+    const year = artifact.year || "";
+    const image = artifact.image || "/logo192.png";
+
     return (
         <div className={Styles.card} onClick={handleClick}>
             <div className={Styles.imageContainer}>
-                <img src={artifact.image} alt={artifact.title} className={Styles.image} />
+                <img src={image} alt={title} className={Styles.image} />
             </div>
             <div className={Styles.content}>
-                <h3 className={Styles.title}>{artifact.title}</h3>
-                <p className={Styles.year}>{artifact.year}</p>
+                <h3 className={Styles.title}>{title}</h3>
+                {year && <p className={Styles.year}>{year}</p>}
             </div>
         </div>
     );

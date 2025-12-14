@@ -9,6 +9,7 @@ import {
   Excursions, 
   HallPage, 
   ArtifactPage, 
+  ArtifactDetailPage,
   FeedbackPage,
   HistoricalFiguresPage,
   HistoricalFigureDetailPage
@@ -26,8 +27,8 @@ function App() {
         <Route path={routes.halls} element={<HallPage />} />
         <Route path={routes.contacts} element={<ContactsPage />} />
         <Route path={routes.survey} element={<FeedbackPage />} />
-        {/* Example nested/detail routes if needed later */}
-        <Route path="/artifacts/*" element={<ArtifactPage />} />
+        <Route path="/artifacts" element={<ArtifactPage />} />
+        <Route path="/artifact/:id" element={<ArtifactDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BaseLayout>
