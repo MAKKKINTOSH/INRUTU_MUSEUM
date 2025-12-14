@@ -192,4 +192,4 @@ export function ArtifactDetailPage() {
             </div>
         </>
     )
-}
+} 

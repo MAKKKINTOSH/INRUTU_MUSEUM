@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Styles from "./ArtifactPage.module.css"
+import {ArtifactTimeline} from "./ArtifactTimeline"
 import {Timeline} from "../../shared/ui/Timeline/Timeline"
 import {ArtifactCard} from "../../shared/ui/ArtifactCard/ArtifactCard"
 import {useSearchParams} from "react-router-dom"

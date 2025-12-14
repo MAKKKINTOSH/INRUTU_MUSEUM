@@ -8,6 +8,7 @@ import {
   Excursions, 
   HallPage, 
   ArtifactPage, 
+  ArtifactDetailPage,
   FeedbackPage,
   HistoricalFiguresPage,
   HistoricalFigureDetailPage

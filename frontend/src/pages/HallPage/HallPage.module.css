@@ -9,7 +9,10 @@
     padding: 12px 24px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 24px;
+    margin: 0 auto 24px auto;
+    max-width: 1280px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .Navigation {
@@ -91,6 +94,18 @@
 @media (min-width: 1024px) {
     .ContentSection {
         padding: 0 96px;
+    }
+}
+
+@media (min-width: 768px) {
+    .HallsHeader {
+        padding: 12px 48px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .HallsHeader {
+        padding: 12px 96px;
     }
 }
 
