@@ -4,7 +4,6 @@ import {ArtifactTimeline} from "./ArtifactTimeline"
 import {ArtifactCard} from "../../shared/ui/ArtifactCard/ArtifactCard"
 import {useSearchParams} from "react-router-dom"
 import Breadcrumbs from "../../shared/ui/Breadcrumbs/Breadcrumbs"
-import { routes } from "../../shared/const"
 import { ArtifactsAPI, HallsAPI, ArtifactCategoriesAPI } from "../../shared/const/api"
 
 export function ArtifactPage() {
@@ -69,8 +68,8 @@ export function ArtifactPage() {
     }, [hallId, categoryId])
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Залы", routes.halls],
+        ["Главная", "/home"],
+        ["Залы", "/halls"]
     ]
     
 
@@ -144,11 +143,9 @@ export function ArtifactPage() {
     if (loading) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
-                <div className={Styles.ArtifactPage}>
-                    <div style={{ textAlign: "center", padding: "40px" }}>
-                        <p>Загрузка артефактов...</p>
-                    </div>
+                <Breadcrumbs links={breadcrumbsLinks} />
+                <div className={Styles.LoadingOverlay}>
+                    <div className={Styles.Spinner}></div>
                 </div>
             </>
         )
@@ -157,7 +154,7 @@ export function ArtifactPage() {
     if (error) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ArtifactPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>{error}</p>
@@ -170,7 +167,7 @@ export function ArtifactPage() {
     if (transformedArtifacts.length === 0) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.ArtifactPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>Артефакты не найдены</p>
@@ -182,7 +179,7 @@ export function ArtifactPage() {
 
     return (
         <>
-            <Breadcrumbs links={breadcrumbsLinks}/>
+            <Breadcrumbs links={breadcrumbsLinks} />
             <div className={Styles.ArtifactPage}>
                 <div className={Styles.PageHeader}>
                     <h1 className={Styles.PageTitle}>

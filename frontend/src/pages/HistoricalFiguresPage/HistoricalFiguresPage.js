@@ -4,7 +4,6 @@ import {HistoricalFiguresAPI} from '../../shared/const/api';
 import {ArtifactTimeline} from '../ArtifactPage/ArtifactTimeline';
 import {HistoricalFigureCard} from './HistoricalFigureCard/HistoricalFigureCard';
 import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
-import {routes} from '../../shared/const';
 
 export function HistoricalFiguresPage() {
     const [figures, setFigures] = useState([]);
@@ -110,18 +109,16 @@ export function HistoricalFiguresPage() {
     }));
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Исторические личности", routes.historicalFigures]
-    ];
+        ["Главная", "/home"],
+        ["Исторические личности", "/historical_figures"]
+    ]
 
     if (loading) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
-                <div className={Styles.HistoricalFiguresPage}>
-                    <div style={{ textAlign: "center", padding: "40px" }}>
-                        <p>Загрузка исторических личностей...</p>
-                    </div>
+                <Breadcrumbs links={breadcrumbsLinks} />
+                <div className={Styles.LoadingOverlay}>
+                    <div className={Styles.Spinner}></div>
                 </div>
             </>
         );
@@ -130,7 +127,7 @@ export function HistoricalFiguresPage() {
     if (error) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.HistoricalFiguresPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>{error}</p>
@@ -143,7 +140,7 @@ export function HistoricalFiguresPage() {
     if (transformedFigures.length === 0) {
         return (
             <>
-                <Breadcrumbs links={breadcrumbsLinks}/>
+                <Breadcrumbs links={breadcrumbsLinks} />
                 <div className={Styles.HistoricalFiguresPage}>
                     <div style={{ textAlign: "center", padding: "40px" }}>
                         <p>Исторические личности не найдены</p>
@@ -155,7 +152,7 @@ export function HistoricalFiguresPage() {
 
     return (
         <>
-            <Breadcrumbs links={breadcrumbsLinks}/>
+            <Breadcrumbs links={breadcrumbsLinks} />
             <div className={Styles.HistoricalFiguresPage}>
                 <div className={Styles.PageHeader}>
                     <h1 className={Styles.PageTitle}>

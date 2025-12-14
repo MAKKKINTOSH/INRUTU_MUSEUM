@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Styles from "./HomePage.module.css";
 import { MuseumSection, MuseumWidgetList, ItemCardList } from "../../shared/ui";
-import { routes } from "../../shared/const";
 import { HallsAPI, HistoricalFiguresAPI } from "../../shared/const/api";
+import { excursions } from "../const УСТАРЕЛО/excursions";
+import { ExcursionCard } from "../Excursions/ExcursionCard/ExcursionCard";
 
 // Когда в базе данных что-то будет, то моковые данные можно будет убрать
 // Используйте функции api.js для получения реальных данных
 // Например для этого файла надо HallsAPI.list() и HistoricalFiguresAPI.getFigures()
 
 export function HomePage() {
-  const [widgetsByMuseum, setWidgetsByMuseum] = useState({ hardware: [], software: [] });
+  const [halls, setHalls] = useState([]);
   const [persons, setPersons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,36 +31,27 @@ export function HomePage() {
           if (!isMounted) return;
 
           // Убеждаемся, что данные - это массивы
-          const hallsArray = Array.isArray(hallsData) ? hallsData : [];
-          const figuresArray = Array.isArray(figuresData) ? figuresData : [];
+          const hallsArray = hallsData.results || hallsData || [];
+          const figuresArray = figuresData.results || figuresData || [];
 
-          // --- Группировка залов ---
-          const grouped = { hardware: [], software: [] };
-          hallsArray.forEach((hall) => {
-            const widget = {
-              id: hall.id,
-              text: hall.name,
-              imageUrl: hall.image?.image_url || hall.image?.image || "",
-              link: `${routes.halls}?hallId=${hall.id}`,
-            };
-            const category = hall.category?.name?.toLowerCase() || "";
-            if (category.includes("программ")) grouped.software.push(widget);
-            else grouped.hardware.push(widget);
-          });
+          // --- Обработка залов (максимум 6) ---
+          const hallsWidgets = hallsArray.slice(0, 6).map((hall) => ({
+            id: hall.id,
+            text: hall.name,
+            imageUrl: hall.image?.image_url || hall.image?.image || "",
+            link: `/artifacts?hallId=${hall.id}`,
+          }));
 
           // --- Обработка исторических личностей ---
           const mappedPersons = figuresArray.map((f) => ({
             imageUrl: f.images?.[0]?.image_url || f.images?.[0]?.image || "",
             personName: f.full_name,
-            link: `${routes.historicalFigures}/${f.id}`,
+            link: `/historical_figures/${f.id}`,
           }));
 
           // --- Устанавливаем в состояние ---
           if (isMounted) {
-            setWidgetsByMuseum({
-              hardware: grouped.hardware.slice(0, 6),
-              software: grouped.software.slice(0, 6),
-            });
+            setHalls(hallsWidgets);
             setPersons(mappedPersons.slice(0, 12));
             setLoading(false);
           }
@@ -112,7 +104,7 @@ export function HomePage() {
                     id: hall.id,
                     text: hall.name,
                     imageUrl: hall.image?.url || "",
-                    link: `${routes.halls}?hallId=${hall.id}`,
+                    link: `/artifacts?hallId=${hall.id}`,
                 };
                 const category = hall.category?.name?.toLowerCase() || "";
                 if (category.includes("программ")) grouped.software.push(widget);
@@ -122,7 +114,7 @@ export function HomePage() {
             const mappedPersons = mockPersons.map((f) => ({
                 imageUrl: f.images?.[0]?.url || "",
                 personName: f.full_name,
-                link: `${routes.historicalFigures}/${f.id}`,
+                link: `/historical_figures/${f.id}`,
             }));
 
             // Ограничение на главную страницу
@@ -170,36 +162,41 @@ export function HomePage() {
         </div>
       </section>
 
-      {widgetsByMuseum.hardware.length > 0 && (
+      {halls.length > 0 && (
         <MuseumSection
           title="Аппаратная экспозиция"
           description="Залы с экспонатами аппаратного обеспечения и вычислительной техники."
-          link={routes.halls}
+          link="/halls"
           linkText="Перейти к залам"
         >
-          <MuseumWidgetList widgets={widgetsByMuseum.hardware} />
+          <MuseumWidgetList widgets={halls} />
         </MuseumSection>
       )}
 
-      {widgetsByMuseum.software.length > 0 && (
-        <MuseumSection
-          title="Программная экспозиция"
-          description="Залы, посвящённые программному обеспечению и его эволюции."
-          link={routes.halls}
-          linkText="Перейти к залам"
-        >
-          <MuseumWidgetList widgets={widgetsByMuseum.software} />
-        </MuseumSection>
-      )}
 
       {persons.length > 0 && (
         <MuseumSection
           title="Исторические личности"
           description="Учёные и инженеры, внёсшие ключевой вклад в развитие вычислительной техники."
-          link={routes.historicalFigures}
+          link="/historical_figures"
           linkText="Смотреть всех"
         >
           <ItemCardList persons={persons} />
+        </MuseumSection>
+      )}
+
+      {excursions.length > 0 && (
+        <MuseumSection
+          title="Приглашаем на цифровую экскурсию"
+          description="Увлекательные экскурсии по музею вычислительной техники."
+          link="/excursions"
+          linkText="Все экскурсии"
+        >
+          <div className={Styles.ExcursionsGrid}>
+            {excursions.map(excursion => (
+              <ExcursionCard key={excursion.id} excursion={excursion} />
+            ))}
+          </div>
         </MuseumSection>
       )}
     </div>
