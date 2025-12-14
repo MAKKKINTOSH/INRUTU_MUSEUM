@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import Styles from "./ArtifactPage.module.css"
-import {Timeline} from "../../shared/ui/Timeline/Timeline"
+import {ArtifactTimeline} from "./ArtifactTimeline"
 import {ArtifactCard} from "../../shared/ui/ArtifactCard/ArtifactCard"
 import {useSearchParams} from "react-router-dom"
 import Breadcrumbs from "../../shared/ui/Breadcrumbs/Breadcrumbs"
@@ -192,7 +192,7 @@ export function ArtifactPage() {
                 <div className={Styles.PageContent}>
                     {timelineDecades.length > 0 && (
                         <div className={Styles.TimelineContainer}>
-                            <Timeline 
+                            <ArtifactTimeline 
                                 centuries={timelineDecades} 
                                 activeCentury={null}
                                 onCenturyClick={(decadeId) => {
