@@ -1,23 +1,22 @@
 import React from 'react';
 import styles from './ExcursionCard.module.css';
 
-export function ExcursionCard({ excursion }) {
+export function ExcursionCard({ hall }) {
+    const { id, text, category, imageUrl } = hall;
+
     return (
-        <div className={styles.card}>
-            <div className={styles.imageContainer}>
-                <img src={excursion.image} alt={excursion.title} className={styles.image} />
-            </div>
-            <div className={styles.content}>
-                <h3 className={styles.title}>{excursion.title}</h3>
-                <p className={styles.description}>{excursion.description}</p>
-                <div className={styles.details}>
-                    <div className={styles.detail}>
-                        <span className={styles.label}>Место проведения:</span>
-                        <span className={styles.value}>{excursion.location}</span>
-                    </div>
-                </div>
-                <button className={styles.button}>Начать экскурсию</button>
+        <div
+            className={styles.card}
+            aria-label={`Зал ${text}`}
+            data-hall-id={id}
+            style={{ backgroundImage: `url(${imageUrl})` }}
+            role="button"
+            tabIndex={0}
+        >
+            <div className={styles.overlay}>
+                <p className={styles.title}>{text}</p>
+                {category && <p className={styles.meta}>{category}</p>}
             </div>
         </div>
     );
-} 
+}

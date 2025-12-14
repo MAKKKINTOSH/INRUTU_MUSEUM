@@ -1,44 +1,72 @@
-.Excursions {
-    max-width: var(--width-main-content);
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
+.PageWrapper {
+    padding: 24px;
+    min-height: 100vh;
+    background-color: var(--c-white);
 }
 
-.Excursions h1 {
-    color: var(--c-dark-blue);
-    margin-bottom: 1.5rem;
-    font-size: var(--font-size-big);
-    font-weight: var(--font-weight-semibold);
+.PageHeader {
+    max-width: 1280px;
+    margin: 0 auto 20px auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.description {
+.PageTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--c-blue);
+    margin: 0;
+}
+
+.PageSubtitle {
+    margin: 0;
     color: var(--c-dark-gray);
-    font-size: var(--font-size-standart);
-    line-height: 1.6;
-    margin-bottom: 2.5rem;
-    max-width: 800px;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-.grid {
+.ContentSection {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 24px;
+}
+
+.Grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.MessageBox {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--c-dark-blue);
 }
 
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
+    .PageWrapper {
+        padding: 16px;
     }
-    
-    .Excursions {
-        padding: 1.5rem 1rem;
+
+    .PageHeader {
+        padding: 0 16px;
+        margin-bottom: 16px;
+    }
+
+    .PageTitle {
+        font-size: 20px;
+    }
+
+    .ContentSection {
+        padding: 0 16px 16px;
+    }
+
+    .Grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
     }
 }
-
-.content {
-    background: var(--c-white);
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-} 
