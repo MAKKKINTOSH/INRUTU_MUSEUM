@@ -1,62 +1,111 @@
 .HistoricalFiguresPage {
-    padding: 40px 24px;
-    max-width: var(--width-main-content);
-    margin: 0 auto;
-    min-height: 100vh;
-}
-
-.FiguresGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    width: 100%;
     padding: 24px;
-    background: var(--c-white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    background-color: var(--c-white);
+    position: relative;
 }
 
-.CenturySection {
+.PageHeader {
+    max-width: 1280px;
+    margin: 0 auto 24px auto;
+    padding: 0 24px;
+}
+
+.PageTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--c-blue);
+    margin: 0;
+    padding: 0;
+}
+
+.PageContent {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 24px;
+    position: relative;
+}
+
+.TimelineContainer {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    flex-shrink: 0;
+}
+
+.FiguresContainer {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
+    padding-left: 0;
 }
 
-.CenturyTitle {
-    font-size: 24px;
+.DecadeSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.DecadeTitle {
+    font-size: 20px;
+    font-weight: 600;
     color: var(--c-dark-blue);
-    font-weight: var(--font-weight-semibold);
     margin: 0;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0;
 }
 
-.FigureCards {
+.FigureGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 1200px) {
+    .FigureGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .FigureGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
     .HistoricalFiguresPage {
-        padding: 24px 16px;
-    }
-    
-    .FiguresGrid {
         padding: 16px;
-        gap: 32px;
     }
     
-    .CenturySection {
-        gap: 16px;
+    .PageHeader {
+        padding: 0 16px;
+        margin-bottom: 16px;
     }
     
-    .CenturyTitle {
+    .PageTitle {
         font-size: 20px;
-        padding-bottom: 12px;
     }
     
-    .FigureCards {
+    .PageContent {
+        flex-direction: column;
         gap: 16px;
+    }
+    
+    .TimelineContainer {
+        position: relative;
+        top: auto;
+    }
+    
+    .FigureGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .FigureGrid {
+        grid-template-columns: 1fr;
     }
 } 

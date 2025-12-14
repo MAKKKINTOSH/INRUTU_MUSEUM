@@ -2,11 +2,31 @@ import Styles from './HistoricalFigureCard.module.css';
 import {Link} from "react-router-dom";
 
 export function HistoricalFigureCard({figure}) {
+    // Извлекаем год из birth_date
+    let birthYear = null;
+    if (figure.birth_date) {
+        if (typeof figure.birth_date === 'string') {
+            birthYear = figure.birth_date.split('-')[0];
+        } else if (figure.birth_date instanceof Date) {
+            birthYear = figure.birth_date.getFullYear().toString();
+        }
+    }
+
+    // Извлекаем год из death_date
+    let deathYear = null;
+    if (figure.death_date) {
+        if (typeof figure.death_date === 'string') {
+            deathYear = figure.death_date.split('-')[0];
+        } else if (figure.death_date instanceof Date) {
+            deathYear = figure.death_date.getFullYear().toString();
+        }
+    }
+
     // Формируем строку с годами жизни
-    const yearsString = figure.birth_year && figure.death_year 
-        ? `${figure.birth_year} - ${figure.death_year}`
-        : figure.birth_year 
-        ? `род. ${figure.birth_year}`
+    const yearsString = birthYear && deathYear 
+        ? `${birthYear} - ${deathYear}`
+        : birthYear 
+        ? `род. ${birthYear}`
         : '';
 
     // Получаем первое изображение из массива images
