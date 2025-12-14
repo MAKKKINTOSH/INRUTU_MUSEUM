@@ -1,13 +1,12 @@
 import Styles from './Header.module.css';
-import {routes} from "../../shared/const";
 import {NavBar} from "./NavBar";
 import {Logo} from "../../shared/ui";
 
 const navigationButtons = [
-    ["Главная", routes.home],
-    ["Экскурсии", routes.excursions],
-    ["Исторические личности", routes.historicalFigures],
-    ["Залы с экспонатами", routes.halls]
+    ["Главная", "/home"],
+    ["Экскурсии", "/excursions"],
+    ["Исторические личности", "/historical_figures"],
+    ["Залы с экспонатами", "/halls"]
 ]
 
 

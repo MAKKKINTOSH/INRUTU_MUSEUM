@@ -4,7 +4,6 @@ import {HistoricalFiguresAPI} from '../../shared/const/api';
 import {Timeline} from '../../shared/ui/Timeline/Timeline';
 import {HistoricalFigureCard} from './HistoricalFigureCard/HistoricalFigureCard';
 import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
-import {routes} from '../../shared/const';
 
 export function HistoricalFiguresPage() {
     const [figures, setFigures] = useState([]);
@@ -60,8 +59,8 @@ export function HistoricalFiguresPage() {
     const sortedCenturies = Object.keys(figuresByCentury).sort((a, b) => parseInt(a) - parseInt(b));
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Исторические личности", routes.historicalFigures]
+        ["Главная", "/home"],
+        ["Исторические личности", "/historical_figures"]
     ];
 
     if (loading) {

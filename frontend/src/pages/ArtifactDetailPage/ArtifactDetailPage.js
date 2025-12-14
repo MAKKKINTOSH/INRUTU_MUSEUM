@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import Styles from "./ArtifactDetailPage.module.css"
 import { useParams, useNavigate } from "react-router-dom"
 import Breadcrumbs from "../../shared/ui/Breadcrumbs/Breadcrumbs"
-import { routes } from "../../shared/const"
 import { ArtifactsAPI, HallsAPI } from "../../shared/const/api"
 
 export function ArtifactDetailPage() {
@@ -78,8 +77,8 @@ export function ArtifactDetailPage() {
     }, [id]) 
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Залы", routes.halls],
+        ["Главная", "/home"],
+        ["Залы", "/halls"],
     ]
     
     if (artifact) {

@@ -18,7 +18,7 @@ export function HistoricalFigureCard({figure}) {
     const description = figure.biography || figure.description || '';
 
     return (
-        <Link to={`/historical_figures/${figure.id}`} className={Styles.Card}>
+        <Link to={`/historical_figure/${figure.id}`} className={Styles.Card}>
             <div className={Styles.ImageContainer}>
                 {imageUrl && (
                     <img src={imageUrl} alt={figure.full_name} className={Styles.Image}/>
