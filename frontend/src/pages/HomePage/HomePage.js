@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Styles from "./HomePage.module.css";
 import { MuseumSection, MuseumWidgetList, ItemCardList } from "../../shared/ui";
-import { routes } from "../../shared/const";
 import { HallsAPI, HistoricalFiguresAPI } from "../../shared/const/api";
 
 // Когда в базе данных что-то будет, то моковые данные можно будет убрать
@@ -40,7 +39,7 @@ export function HomePage() {
               id: hall.id,
               text: hall.name,
               imageUrl: hall.image?.image_url || hall.image?.image || "",
-              link: `${routes.halls}?hallId=${hall.id}`,
+              link: `/artifacts?hallId=${hall.id}`,
             };
             const category = hall.category?.name?.toLowerCase() || "";
             if (category.includes("программ")) grouped.software.push(widget);
@@ -51,7 +50,7 @@ export function HomePage() {
           const mappedPersons = figuresArray.map((f) => ({
             imageUrl: f.images?.[0]?.image_url || f.images?.[0]?.image || "",
             personName: f.full_name,
-            link: `${routes.historicalFigures}/${f.id}`,
+            link: `/historical_figures/${f.id}`,
           }));
 
           // --- Устанавливаем в состояние ---
@@ -112,7 +111,7 @@ export function HomePage() {
                     id: hall.id,
                     text: hall.name,
                     imageUrl: hall.image?.url || "",
-                    link: `${routes.halls}?hallId=${hall.id}`,
+                    link: `/artifacts?hallId=${hall.id}`,
                 };
                 const category = hall.category?.name?.toLowerCase() || "";
                 if (category.includes("программ")) grouped.software.push(widget);
@@ -122,7 +121,7 @@ export function HomePage() {
             const mappedPersons = mockPersons.map((f) => ({
                 imageUrl: f.images?.[0]?.url || "",
                 personName: f.full_name,
-                link: `${routes.historicalFigures}/${f.id}`,
+                link: `/historical_figures/${f.id}`,
             }));
 
             // Ограничение на главную страницу
@@ -174,7 +173,7 @@ export function HomePage() {
         <MuseumSection
           title="Аппаратная экспозиция"
           description="Залы с экспонатами аппаратного обеспечения и вычислительной техники."
-          link={routes.halls}
+          link="/halls"
           linkText="Перейти к залам"
         >
           <MuseumWidgetList widgets={widgetsByMuseum.hardware} />
@@ -185,7 +184,7 @@ export function HomePage() {
         <MuseumSection
           title="Программная экспозиция"
           description="Залы, посвящённые программному обеспечению и его эволюции."
-          link={routes.halls}
+          link="/halls"
           linkText="Перейти к залам"
         >
           <MuseumWidgetList widgets={widgetsByMuseum.software} />
@@ -196,7 +195,7 @@ export function HomePage() {
         <MuseumSection
           title="Исторические личности"
           description="Учёные и инженеры, внёсшие ключевой вклад в развитие вычислительной техники."
-          link={routes.historicalFigures}
+          link="/historical_figures"
           linkText="Смотреть всех"
         >
           <ItemCardList persons={persons} />

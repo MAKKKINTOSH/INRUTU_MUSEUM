@@ -4,7 +4,6 @@ import {HistoricalFiguresAPI} from '../../shared/const/api';
 import {ArtifactTimeline} from '../ArtifactPage/ArtifactTimeline';
 import {HistoricalFigureCard} from './HistoricalFigureCard/HistoricalFigureCard';
 import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
-import {routes} from '../../shared/const';
 
 export function HistoricalFiguresPage() {
     const [figures, setFigures] = useState([]);
@@ -110,8 +109,8 @@ export function HistoricalFiguresPage() {
     }));
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Исторические личности", routes.historicalFigures]
+        ["Главная", "/home"],
+        ["Исторические личности", "/historical_figures"]
     ];
 
     if (loading) {

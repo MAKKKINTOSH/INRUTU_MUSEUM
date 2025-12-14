@@ -3,7 +3,6 @@ import Styles from './HistoricalFigureDetailPage.module.css';
 import {useParams} from 'react-router-dom';
 import {HistoricalFiguresAPI} from '../../shared/const/api';
 import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
-import {routes} from '../../shared/const';
 
 export function HistoricalFigureDetailPage() {
     const {id} = useParams();
@@ -75,9 +74,9 @@ export function HistoricalFigureDetailPage() {
     const mainImage = images[selectedImageIndex] || images[0] || '';
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Исторические личности", routes.historicalFigures],
-        [figure.full_name, `${routes.historicalFigures}/${figure.id}`]
+        ["Главная", "/home"],
+        ["Исторические личности", "/historical_figures"],
+        [figure.full_name, `/historical_figures/${figure.id}`]
     ];
 
     return (

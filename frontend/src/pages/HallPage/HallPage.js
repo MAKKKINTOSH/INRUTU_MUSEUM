@@ -3,24 +3,23 @@ import Styles from "./HallPage.module.css"
 import {MuseumWidgetList} from "../../shared/ui";
 import {useSearchParams, Link} from "react-router-dom";
 import Breadcrumbs from "../../shared/ui/Breadcrumbs/Breadcrumbs";
-import { routes } from "../../shared/const";
 import { HallsAPI, HallCategoriesAPI } from "../../shared/const/api";
 
 const breadcrumbsLinks = [
-    ["Главная", routes.home],
-    ["Залы", routes.halls]
+    ["Главная", "/home"],
+    ["Залы", "/halls"]
 ]
 
 function getHallPageHeader(selectedCategoryId, categories, halls) {
     const hallSectionsLinks = [
         {
             name: "Все залы",
-            link: routes.halls,
+            link: "/halls",
             categoryId: null
         },
         ...categories.map(cat => ({
             name: cat.name,
-            link: `${routes.halls}?categoryId=${cat.id}`,
+            link: `/halls?categoryId=${cat.id}`,
             categoryId: cat.id
         }))
     ]

@@ -1,17 +1,16 @@
 import Styles from './Footer.module.css';
 import {Logo} from "../../shared/ui";
-import {routes} from "../../shared/const";
 import { Link } from 'react-router-dom';
 
 const links = [
-    ["Главная", routes.home],
-    ["Экскурсии", routes.excursions],
-    ["Исторические личности", routes.historicalFigures],
-    ["Залы с экспонатами", routes.halls],
-    ["Оставить отзыв", routes.survey],
-    ["Контакты", routes.contacts],
-    ["Поиск по сайту", routes.search],
-    ["Войти как администратор", routes.admin]
+    ["Главная", "/home"],
+    ["Экскурсии", "/excursions"],
+    ["Исторические личности", "/historical_figures"],
+    ["Залы с экспонатами", "/halls"],
+    ["Оставить отзыв", "/survey"],
+    ["Контакты", "/contacts"],
+    ["Поиск по сайту", "/search"],
+    ["Войти как администратор", "/admin"]
 ]
 
 export function Footer({ onAdminClick }) {
@@ -26,7 +25,7 @@ export function Footer({ onAdminClick }) {
                 <Logo/>
                 <div className={Styles.Links}>
                     {links.map((element, index) => (
-                        element[1] === routes.admin ? (
+                        element[1] === "/admin" ? (
                             <button 
                                 key={index} 
                                 onClick={handleAdminClick}

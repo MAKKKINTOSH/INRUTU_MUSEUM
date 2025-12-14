@@ -4,7 +4,6 @@ import {ArtifactTimeline} from "./ArtifactTimeline"
 import {ArtifactCard} from "../../shared/ui/ArtifactCard/ArtifactCard"
 import {useSearchParams} from "react-router-dom"
 import Breadcrumbs from "../../shared/ui/Breadcrumbs/Breadcrumbs"
-import { routes } from "../../shared/const"
 import { ArtifactsAPI, HallsAPI, ArtifactCategoriesAPI } from "../../shared/const/api"
 
 export function ArtifactPage() {
@@ -69,8 +68,8 @@ export function ArtifactPage() {
     }, [hallId, categoryId])
 
     const breadcrumbsLinks = [
-        ["Главная", routes.home],
-        ["Залы", routes.halls],
+        ["Главная", "/home"],
+        ["Залы", "/halls"],
     ]
     
 
