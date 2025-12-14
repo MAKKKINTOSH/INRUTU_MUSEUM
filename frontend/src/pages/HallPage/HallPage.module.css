@@ -9,7 +9,10 @@
     padding: 12px 24px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 24px;
+    margin: 0 auto 24px auto;
+    max-width: 1280px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .Navigation {
@@ -51,6 +54,16 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.PageTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--c-blue);
+    margin: 0 0 10px 0;
+    padding: 0;
+    border: none;
+    text-align: left;
+}
+
 .HallsSection {
     padding: 0 96px;
     max-width: 1280px;
@@ -67,8 +80,9 @@
     box-sizing: border-box;
     width: 100%;
     margin: 0 auto;
-    display: grid;
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 @media (min-width: 768px) {
@@ -80,6 +94,18 @@
 @media (min-width: 1024px) {
     .ContentSection {
         padding: 0 96px;
+    }
+}
+
+@media (min-width: 768px) {
+    .HallsHeader {
+        padding: 12px 48px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .HallsHeader {
+        padding: 12px 96px;
     }
 }
 
