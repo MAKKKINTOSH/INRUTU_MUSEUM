@@ -252,6 +252,57 @@
   cursor: not-allowed;
 }
 
+.MessageLinks {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.MessageLink {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--color-block-background-light-gray);
+  border: 1px solid var(--color-wrapper-border);
+  border-radius: var(--radius-small);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all var(--transition-fast);
+}
+
+.MessageLink:hover {
+  background: var(--color-primary);
+  color: var(--color-wrapper);
+  border-color: var(--color-primary);
+}
+
+.InlineLink {
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.InlineLink:hover {
+  color: var(--color-primary-hover);
+}
+
+.TypingIndicator {
+  margin: 0;
+  font-style: italic;
+  opacity: 0.7;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .ChatWindow {

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "shared",
     "historical_figures",
     "artifacts",
+    "chatbot",
 ]
 
 MIDDLEWARE = [
@@ -201,7 +202,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-]
+] if (BASE_DIR / 'static').exists() else []
 
 # Admin settings
 ADMIN_SITE_HEADER = "Виртуальный музей вычислительной техники"

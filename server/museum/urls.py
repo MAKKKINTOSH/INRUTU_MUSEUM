@@ -30,6 +30,7 @@ urlpatterns = [
     path("api/shared/", include("shared.urls")),
     path("api/historical-figures/", include("historical_figures.urls")),
     path("api/artifacts/", include("artifacts.urls")),
+    path("api/chatbot/", include("chatbot.urls")),
     
     # API Documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
