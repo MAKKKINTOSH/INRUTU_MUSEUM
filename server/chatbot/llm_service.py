@@ -199,7 +199,7 @@ class MuseumLLMService:
                         content = re.sub(r'\[/\]', '', content)
                         content = re.sub(r'\[/halls\]', '', content)
                         content = re.sub(r'\[/artifacts\]', '', content)
-                        content = re.sub(r'\[/historical-figures\]', '', content)
+                        content = re.sub(r'\[/historical_figures\]', '', content)
                         # Удаляем ссылки с пустым текстом: [](/link)
                         content = re.sub(r'\[\]\(/[^)]+\)', '', content)
                         # Удаляем ссылки только с слэшем: [/link] без квадратных скобок с текстом

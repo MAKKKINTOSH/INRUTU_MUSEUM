@@ -166,7 +166,7 @@ class ChatViewSet(viewsets.ViewSet):
                 'type': 'historical_figure',
                 'id': figure.get('id'),
                 'name': full_name,
-                'url': f"/historical-figures/{figure.get('id')}"
+                'url': f"/historical_figures/{figure.get('id')}"
             })
         
         return links
