@@ -19,8 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Настройка для чтения .env файла из директории museum
 env = environ.Env()
-environ.Env.read_env()
-
+environ.Env.read_env(".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/

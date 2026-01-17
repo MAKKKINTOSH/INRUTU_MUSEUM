@@ -51,6 +51,7 @@ class MuseumSearchService:
     ) -> List[Dict]:
         """
         Поиск исторических личностей по запросу.
+        Приоритет: точное совпадение имени > частичное совпадение имени > поиск в биографии.
         
         Args:
             query: Поисковый запрос
@@ -62,38 +63,91 @@ class MuseumSearchService:
         if not query or not query.strip():
             return []
         
-        query = query.strip().lower()
+        original_query = query.strip()
+        query = original_query.lower()
         
         # Извлекаем ключевые слова из запроса (убираем стоп-слова)
         stop_words = {'кто', 'такой', 'такая', 'такое', 'расскажи', 'про', 'об', 'о', 'что', 'это', 'какой', 'какая', 'какое'}
         words = [w for w in query.split() if w not in stop_words and len(w) > 2]
         
-        # Если есть ключевые слова, используем их для поиска
-        if words:
-            search_terms = words
-        else:
-            search_terms = [query]
+        # Сначала пытаемся найти точное совпадение по полному имени
+        # Ищем комбинации: ФИО, ФИ, Ф+О, только Фамилия
+        figures_exact = HistoricalFigure.objects.none()
         
-        # Строим запрос с поиском по каждому ключевому слову
-        q_objects = Q()
-        for term in search_terms:
-            q_objects |= (
-                Q(last_name__icontains=term) |
-                Q(first_name__icontains=term) |
-                Q(middle_name__icontains=term) |
-                Q(description__icontains=term) |
-                Q(biography__icontains=term) |
-                Q(science_fields__name__icontains=term)
+        # Поиск по полному имени (Фамилия Имя Отчество)
+        full_name_match = HistoricalFigure.objects.filter(
+            Q(last_name__iexact=words[0]) if words else Q()
+        )
+        if len(words) >= 2:
+            full_name_match = full_name_match.filter(
+                Q(first_name__iexact=words[1])
+            )
+        if len(words) >= 3:
+            full_name_match = full_name_match.filter(
+                Q(middle_name__iexact=words[2])
             )
         
-        # Также ищем по полному запросу
+        if full_name_match.exists():
+            figures_exact = full_name_match
+        
+        # Поиск по комбинации Фамилия + Имя (точное совпадение)
+        if not figures_exact.exists() and len(words) >= 2:
+            figures_exact = HistoricalFigure.objects.filter(
+                Q(last_name__iexact=words[0]) &
+                Q(first_name__iexact=words[1])
+            )
+        
+        # Поиск по фамилии (точное совпадение)
+        if not figures_exact.exists() and words:
+            figures_exact = HistoricalFigure.objects.filter(
+                Q(last_name__iexact=words[0])
+            )
+        
+        # Если нашли точное совпадение, возвращаем его
+        if figures_exact.exists():
+            figures = figures_exact.distinct().prefetch_related('science_fields', 'images', 'artifacts')[:limit]
+            serializer = HistoricalFigureSerializer(figures, many=True, context={'request': None})
+            return serializer.data
+        
+        # Если точного совпадения нет, ищем частичные совпадения по именам
+        q_objects = Q()
+        if words:
+            for term in words:
+                q_objects |= (
+                    Q(last_name__icontains=term) |
+                    Q(first_name__icontains=term) |
+                    Q(middle_name__icontains=term)
+                )
+        
+        # Также ищем по полному запросу в именах
         q_objects |= (
-            Q(last_name__icontains=query) |
-            Q(first_name__icontains=query) |
-            Q(middle_name__icontains=query) |
-            Q(description__icontains=query) |
-            Q(biography__icontains=query) |
-            Q(science_fields__name__icontains=query)
+            Q(last_name__icontains=original_query) |
+            Q(first_name__icontains=original_query) |
+            Q(middle_name__icontains=original_query)
+        )
+        
+        figures_partial = HistoricalFigure.objects.filter(q_objects).distinct()
+        
+        # Если нашли частичные совпадения по именам, возвращаем их
+        if figures_partial.exists():
+            figures = figures_partial.prefetch_related('science_fields', 'images', 'artifacts')[:limit]
+            serializer = HistoricalFigureSerializer(figures, many=True, context={'request': None})
+            return serializer.data
+        
+        # В последнюю очередь ищем в описании и биографии
+        q_objects = Q()
+        if words:
+            for term in words:
+                q_objects |= (
+                    Q(description__icontains=term) |
+                    Q(biography__icontains=term) |
+                    Q(science_fields__name__icontains=term)
+                )
+        
+        q_objects |= (
+            Q(description__icontains=original_query) |
+            Q(biography__icontains=original_query) |
+            Q(science_fields__name__icontains=original_query)
         )
         
         figures = HistoricalFigure.objects.filter(q_objects).distinct().prefetch_related('science_fields', 'images', 'artifacts')[:limit]
@@ -106,7 +160,7 @@ class MuseumSearchService:
         user_message: str,
         artifact_limit: int = 3,
         figure_limit: int = 3
-    ) -> str:
+    ) -> tuple[str, bool]:
         """
         Получает релевантный контекст на основе сообщения пользователя.
         
@@ -116,7 +170,7 @@ class MuseumSearchService:
             figure_limit: Максимум исторических личностей
         
         Returns:
-            Форматированная строка с контекстом
+            Кортеж (форматированная строка с контекстом, флаг наличия данных в БД)
         """
         artifacts = self.search_artifacts(user_message, limit=artifact_limit)
         figures = self.search_historical_figures(user_message, limit=figure_limit)
@@ -124,16 +178,19 @@ class MuseumSearchService:
         from .prompts import format_artifact_context, format_historical_figure_context
         
         context_parts = []
+        has_data = False
         
         artifact_context = format_artifact_context(artifacts)
         if artifact_context:
             context_parts.append(artifact_context)
+            has_data = True
         
         figure_context = format_historical_figure_context(figures)
         if figure_context:
             context_parts.append(figure_context)
+            has_data = True
         
-        return "\n".join(context_parts)
+        return "\n".join(context_parts), has_data
 
 
 # Глобальный экземпляр сервиса

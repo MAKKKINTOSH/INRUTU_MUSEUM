@@ -112,15 +112,19 @@ class MuseumLLMService:
         self,
         user_message: str,
         context: str = "",
-        conversation_history: Optional[List[Dict[str, str]]] = None
+        conversation_history: Optional[List[Dict[str, str]]] = None,
+        has_db_data: bool = False,
+        external_context: str = ""
     ) -> str:
         """
         Генерирует ответ бота на основе сообщения пользователя и контекста.
         
         Args:
             user_message: Сообщение пользователя
-            context: Контекстная информация об экспонатах, личностях и т.д.
+            context: Контекстная информация об экспонатах, личностях и т.д. из БД
             conversation_history: История диалога в формате [{'role': 'user', 'content': '...'}, ...]
+            has_db_data: Флаг, указывающий, есть ли данные в БД
+            external_context: Внешний контекст (если данных в БД нет)
         
         Returns:
             Ответ бота
@@ -134,7 +138,7 @@ class MuseumLLMService:
             from .prompts import get_chat_prompt
             
             # Формируем системный промпт с контекстом
-            system_prompt = get_chat_prompt(context)
+            system_prompt = get_chat_prompt(context, has_db_data=has_db_data, external_context=external_context)
             
             # Формируем сообщения для API
             messages = [
@@ -158,10 +162,12 @@ class MuseumLLMService:
             messages.append({"role": "user", "content": user_message})
             
             # Формируем запрос к API
+            # Снижаем temperature для более точных ответов, особенно при наличии данных из БД
+            temperature = 0.3 if has_db_data else 0.7
             payload = {
                 "model": "GigaChat",
                 "messages": messages,
-                "temperature": 0.7,
+                "temperature": temperature,
                 "max_tokens": 2000
             }
             
@@ -193,17 +199,73 @@ class MuseumLLMService:
                         # Убираем лишние пробелы и переносы
                         content = content.strip()
                         
-                        # Исправляем неправильные ссылки типа [/] или [/halls]
+                        # Исправляем неправильные ссылки и форматы
                         import re
+                        
+                        # КРИТИЧЕСКИ ВАЖНО: Сначала исправляем ссылки без текста в квадратных скобках
+                        # Паттерн: текст [/historical-figures/6] -> [текст](/historical_figures/6)
+                        def fix_bare_link(match):
+                            text = match.group(1).strip()
+                            link = match.group(2)
+                            # Исправляем формат ссылки
+                            link = re.sub(r'/historical-figures/(\d+)', r'/historical_figures/\1', link)
+                            link = re.sub(r'/artifacts/(\d+)', r'/artifact/\1', link)
+                            return f'[{text}]({link})'
+                        
+                        # Исправляем ссылки типа: "Говорков Алексей Сергеевич [/historical-figures/6]"
+                        # Берем последние слова (имя или название) перед ссылкой как текст ссылки
+                        # Ищем паттерн: слова (минимум 2 слова или одно длинное слово), затем пробел, затем [/link]
+                        content = re.sub(r'([А-Яа-яёЁA-Za-z]{2,}(?:\s+[А-Яа-яёЁA-Za-z]{2,}){0,3}?)\s+\[(/[^\]]+)\]', fix_bare_link, content)
+                        
+                        # Также исправляем если ссылка идет сразу после текста без пробела
+                        content = re.sub(r'([А-Яа-яёЁA-Za-z]{2,})\[(/[^\]]+)\]', fix_bare_link, content)
+                        
+                        # Исправляем неправильные форматы в ссылках Markdown
+                        # /historical-figures/ -> /historical_figures/ в ссылках
+                        content = re.sub(r'\[([^\]]+)\]\(/historical-figures/(\d+)\)', r'[\1](/historical_figures/\2)', content)
+                        # /artifacts/ -> /artifact/ в ссылках
+                        content = re.sub(r'\[([^\]]+)\]\(/artifacts/(\d+)\)', r'[\1](/artifact/\2)', content)
+                        
+                        # Исправляем ссылки в скобках после текста: текст ([/link]) -> [текст](/link)
+                        def fix_brackets_link(match):
+                            text = match.group(1).strip()
+                            link = match.group(2)
+                            # Исправляем формат ссылки
+                            link = re.sub(r'/historical-figures/(\d+)', r'/historical_figures/\1', link)
+                            link = re.sub(r'/artifacts/(\d+)', r'/artifact/\1', link)
+                            return f'[{text}]({link})'
+                        
+                        content = re.sub(r'([А-Яа-яёЁA-Za-z\s]+)\s*\(\[(/[^\]]+)\]\)', fix_brackets_link, content)
+                        
+                        # Исправляем ссылки в скобках без квадратных скобок: текст (/link) -> [текст](/link)
+                        def fix_parentheses_link(match):
+                            text = match.group(1).strip()
+                            link = match.group(2)
+                            # Исправляем формат ссылки
+                            link = re.sub(r'/historical-figures/(\d+)', r'/historical_figures/\1', link)
+                            link = re.sub(r'/artifacts/(\d+)', r'/artifact/\1', link)
+                            return f'[{text}]({link})'
+                        
+                        # Исправляем только если это не уже правильная ссылка Markdown
+                        content = re.sub(r'([А-Яа-яёЁA-Za-z\s]+)\s*\((/[^)]+)\)(?!\])', fix_parentheses_link, content)
+                        
                         # Удаляем ссылки без текста: [/], [/halls], [/artifacts] и т.д.
-                        content = re.sub(r'\[/\]', '', content)
-                        content = re.sub(r'\[/halls\]', '', content)
-                        content = re.sub(r'\[/artifacts\]', '', content)
-                        content = re.sub(r'\[/historical-figures\]', '', content)
+                        content = re.sub(r'\s*\[/\]\s*', ' ', content)
+                        content = re.sub(r'\s*\[/halls\]\s*', ' ', content)
+                        content = re.sub(r'\s*\[/artifacts\]\s*', ' ', content)
+                        content = re.sub(r'\s*\[/historical-figures\]\s*', ' ', content)
+                        content = re.sub(r'\s*\[/historical_figures\]\s*', ' ', content)
+                        
                         # Удаляем ссылки с пустым текстом: [](/link)
                         content = re.sub(r'\[\]\(/[^)]+\)', '', content)
+                        
                         # Удаляем ссылки только с слэшем: [/link] без квадратных скобок с текстом
                         content = re.sub(r'\s+\[/[^\]]+\]\s+', ' ', content)
+                        
+                        # Исправляем неполные ответы, которые обрываются на " - это..." или подобных фразах
+                        # Если ответ заканчивается на незавершенную фразу, удаляем её
+                        content = re.sub(r'\s+-\s+это\.\.\.?\s*$', '', content, flags=re.IGNORECASE)
+                        content = re.sub(r'\s+-\s+это\s*$', '.', content, flags=re.IGNORECASE)
                         
                         # Если ответ слишком короткий или похож на список, добавляем пояснение
                         if len(content) < 50 and '\n' in content:
