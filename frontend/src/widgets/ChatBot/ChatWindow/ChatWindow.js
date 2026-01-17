@@ -124,21 +124,93 @@ export function ChatWindow({ isOpen, onClose }) {
   };
 
   const formatMessage = (text) => {
-    // Простая обработка Markdown-разметки и ссылок
-    // Заменяем ссылки в формате [текст](/url) на HTML
-    let formatted = text.replace(
+    if (!text) return '';
+    
+    // Экранируем HTML для безопасности
+    const escapeHtml = (str) => {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+    
+    // Сначала обрабатываем ссылки в формате [текст](/url) ДО экранирования
+    // Это позволяет правильно обработать ссылки
+    let formatted = text;
+    
+    // Обрабатываем ссылки в формате [текст](/url)
+    formatted = formatted.replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" class="' + Styles.InlineLink + '">$1</a>'
+      (match, linkText, linkUrl) => {
+        // Исправляем неправильные форматы ссылок
+        let correctedUrl = linkUrl;
+        // Исправляем /historical-figures/ на /historical_figures/
+        correctedUrl = correctedUrl.replace(/\/historical-figures\//g, '/historical_figures/');
+        // Исправляем /artifacts/ на /artifact/
+        correctedUrl = correctedUrl.replace(/\/artifacts\/(\d+)/g, '/artifact/$1');
+        
+        // Экранируем текст ссылки и URL
+        const escapedText = escapeHtml(linkText);
+        const escapedUrl = escapeHtml(correctedUrl);
+        
+        return `<a href="${escapedUrl}" class="${Styles.InlineLink}" onclick="event.preventDefault(); window.location.href='${escapedUrl}'; return false;">${escapedText}</a>`;
+      }
     );
+    
+    // Обрабатываем ссылки без текста в квадратных скобках: текст [/url]
+    // Находим паттерн: текст [/historical-figures/6] и преобразуем в ссылку
+    // Используем более широкий паттерн для захвата текста перед ссылкой
+    formatted = formatted.replace(
+      /([А-Яа-яёЁA-Za-z\s]{2,}?)\s+\[(\/[^\]]+)\]/g,
+      (match, linkText, linkUrl) => {
+        // Пропускаем, если это уже обработанная ссылка
+        if (match.includes('<a')) {
+          return match;
+        }
+        
+        // Исправляем формат ссылки
+        let correctedUrl = linkUrl;
+        correctedUrl = correctedUrl.replace(/\/historical-figures\//g, '/historical_figures/');
+        correctedUrl = correctedUrl.replace(/\/artifacts\/(\d+)/g, '/artifact/$1');
+        
+        // Берем последние слова как текст ссылки (до 5 слов)
+        const words = linkText.trim().split(/\s+/);
+        const lastWords = words.slice(-3).join(' '); // Берем последние 3 слова
+        
+        const escapedText = escapeHtml(lastWords);
+        const escapedUrl = escapeHtml(correctedUrl);
+        
+        // Заменяем только последние слова на ссылку, остальной текст оставляем
+        const prefix = words.slice(0, -3).join(' ');
+        const prefixText = prefix ? escapeHtml(prefix) + ' ' : '';
+        
+        return `${prefixText}<a href="${escapedUrl}" class="${Styles.InlineLink}" onclick="event.preventDefault(); window.location.href='${escapedUrl}'; return false;">${escapedText}</a>`;
+      }
+    );
+    
+    // Теперь экранируем весь остальной текст (но не уже обработанные ссылки)
+    // Разделяем на части: ссылки и обычный текст
+    const parts = formatted.split(/(<a[^>]*>.*?<\/a>)/g);
+    formatted = parts.map(part => {
+      // Если это уже ссылка, не экранируем
+      if (part.startsWith('<a')) {
+        return part;
+      }
+      // Иначе экранируем
+      return escapeHtml(part);
+    }).join('');
     
     // Заменяем переносы строк на <br>
     formatted = formatted.replace(/\n/g, '<br>');
     
-    // Заменяем **текст** на <strong>текст</strong>
+    // Заменяем **текст** на <strong>текст</strong> (жирный)
     formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     
-    // Заменяем *текст* на <em>текст</em>
-    formatted = formatted.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    // Заменяем *текст* на <em>текст</em> (курсив), но только если это не часть **текст**
+    // Используем более простой подход без lookbehind (для совместимости)
+    formatted = formatted.replace(/(^|[^*])\*([^*]+)\*([^*]|$)/g, '$1<em>$2</em>$3');
     
     return formatted;
   };

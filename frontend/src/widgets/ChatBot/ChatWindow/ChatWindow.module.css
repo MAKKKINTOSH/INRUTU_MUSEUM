@@ -281,10 +281,34 @@
   color: var(--color-primary);
   text-decoration: underline;
   transition: color var(--transition-fast);
+  cursor: pointer;
+  word-break: break-word;
 }
 
 .InlineLink:hover {
   color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+.MessageContent a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+  cursor: pointer;
+  word-break: break-word;
+}
+
+.MessageContent a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+.MessageContent strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+.MessageContent em {
+  font-style: italic;
 }
 
 .TypingIndicator {
