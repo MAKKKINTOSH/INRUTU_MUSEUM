@@ -1,10 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Excursions.module.css';
-import { excursions } from '../const УСТАРЕЛО/excursions';
-import { ExcursionCard } from './ExcursionCard/ExcursionCard';
 import Breadcrumbs from '../../shared/ui/Breadcrumbs/Breadcrumbs';
 
 export function Excursions() {
+    const navigate = useNavigate();
     const breadcrumbsLinks = [
         ["Главная", "/home"],
         ["Экскурсии", "/excursions"]
@@ -21,9 +21,13 @@ export function Excursions() {
                     и узнать много интересного о компьютерах и их создателях.
                 </p>
                 <div className={styles.grid}>
-                    {excursions.map(excursion => (
-                        <ExcursionCard key={excursion.id} excursion={excursion} />
-                    ))}
+                    <button
+                        type="button"
+                        className={styles.OverviewButton}
+                        onClick={() => navigate('/excursions/tour')}
+                    >
+                        Обзорная экскурсия
+                    </button>
                 </div>
             </div>
         </>

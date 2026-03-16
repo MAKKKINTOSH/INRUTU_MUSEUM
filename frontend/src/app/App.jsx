@@ -13,6 +13,7 @@ import {
   HistoricalFiguresPage,
   HistoricalFigureDetailPage
 } from '../pages';
+import { ExcursionsTourPage } from '../pages/Excursions/ExcursionsTourPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/excursions" element={<Excursions />} />
+        <Route path="/excursions/tour" element={<ExcursionsTourPage />} />
         <Route path="/historical_figures" element={<HistoricalFiguresPage />} />
         <Route path="/historical_figures/:id" element={<HistoricalFigureDetailPage />} />
         <Route path="/halls" element={<HallPage />} />
