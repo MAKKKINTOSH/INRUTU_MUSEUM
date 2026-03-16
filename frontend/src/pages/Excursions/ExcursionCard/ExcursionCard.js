@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './ExcursionCard.module.css';
 
 export function ExcursionCard({ excursion }) {
+    const navigate = useNavigate();
+
+    const handleStart = () => {
+        navigate(excursion?.link || '/excursions/tour');
+    };
+
     return (
         <div className={styles.card}>
             <div className={styles.imageContainer}>
@@ -16,7 +23,9 @@ export function ExcursionCard({ excursion }) {
                         <span className={styles.value}>{excursion.location}</span>
                     </div>
                 </div>
-                <button className={styles.button}>Начать экскурсию</button>
+                <button className={styles.button} type="button" onClick={handleStart}>
+                    Начать экскурсию
+                </button>
             </div>
         </div>
     );

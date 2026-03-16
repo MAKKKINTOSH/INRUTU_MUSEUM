@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Styles from "./HomePage.module.css";
 import { MuseumSection, MuseumWidgetList, ItemCardList } from "../../shared/ui";
 import { HallsAPI, HistoricalFiguresAPI } from "../../shared/const/api";
