@@ -1,0 +1,230 @@
+/* Кастомные стили для админ-панели Музея вычислительной техники ИрНИТУ */
+
+/* Цветовая схема */
+:root {
+    --primary-dark-blue: #1a3a5f;  /* Темно-синий */
+    --primary-light-blue: #4a9bd8; /* Светло-синий */
+    --primary-white: #ffffff;      /* Белый */
+    --secondary-white: #f8f9fa;    /* Светло-белый для фона */
+    --text-dark: #212529;          /* Темный текст */
+    --border-color: #dee2e6;      /* Цвет границ */
+}
+
+/* Основной фон */
+body {
+    background-color: var(--primary-white) !important;
+}
+
+/* Заголовок админ-панели */
+#header {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+    border-bottom: 3px solid var(--primary-light-blue) !important;
+}
+
+#header a:link,
+#header a:visited {
+    color: var(--primary-white) !important;
+}
+
+#header a:hover {
+    color: var(--primary-light-blue) !important;
+}
+
+/* Логотип и название */
+#site-name {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 0;
+}
+
+#site-name a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--primary-white) !important;
+}
+
+#site-name img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Боковое меню */
+#content-related {
+    background-color: var(--secondary-white) !important;
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+    border-bottom: 2px solid var(--primary-light-blue) !important;
+}
+
+/* Кнопки */
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+    border: 1px solid var(--primary-dark-blue) !important;
+}
+
+.button:hover,
+input[type=submit]:hover,
+input[type=button]:hover,
+a.button:hover {
+    background-color: var(--primary-light-blue) !important;
+    border-color: var(--primary-light-blue) !important;
+}
+
+.button.default,
+input[type=submit].default,
+.submit-row input.default {
+    background-color: var(--primary-light-blue) !important;
+    border-color: var(--primary-light-blue) !important;
+}
+
+.button.default:hover,
+input[type=submit].default:hover {
+    background-color: var(--primary-dark-blue) !important;
+    border-color: var(--primary-dark-blue) !important;
+}
+
+/* Ссылки */
+a:link,
+a:visited {
+    color: var(--primary-dark-blue) !important;
+}
+
+a:hover {
+    color: var(--primary-light-blue) !important;
+}
+
+/* Активные элементы */
+.selected a {
+    background-color: var(--primary-light-blue) !important;
+    color: var(--primary-white) !important;
+}
+
+/* Таблицы */
+#result_list thead th {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+    border-bottom: 2px solid var(--primary-light-blue) !important;
+}
+
+#result_list tbody tr:hover {
+    background-color: var(--secondary-white) !important;
+}
+
+/* Формы */
+fieldset.module {
+    background-color: var(--primary-white) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+fieldset.module h2 {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+    border-bottom: 2px solid var(--primary-light-blue) !important;
+}
+
+/* Поля ввода при фокусе */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-light-blue) !important;
+    box-shadow: 0 0 0 2px rgba(74, 155, 216, 0.2) !important;
+}
+
+/* Сообщения */
+.messagelist li {
+    background-color: var(--secondary-white) !important;
+    border-left: 4px solid var(--primary-light-blue) !important;
+}
+
+.messagelist li.success {
+    border-left-color: #28a745 !important;
+}
+
+.messagelist li.error {
+    border-left-color: #dc3545 !important;
+}
+
+.messagelist li.warning {
+    border-left-color: #ffc107 !important;
+}
+
+/* Хлебные крошки */
+.breadcrumbs {
+    background-color: var(--secondary-white) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.breadcrumbs a {
+    color: var(--primary-dark-blue) !important;
+}
+
+.breadcrumbs a:hover {
+    color: var(--primary-light-blue) !important;
+}
+
+/* Панель инструментов */
+.object-tools {
+    background-color: var(--secondary-white) !important;
+}
+
+.object-tools a {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+}
+
+.object-tools a:hover {
+    background-color: var(--primary-light-blue) !important;
+}
+
+/* Фильтры */
+#changelist-filter {
+    background-color: var(--secondary-white) !important;
+    border-left: 1px solid var(--border-color) !important;
+}
+
+#changelist-filter h2 {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+    border-bottom: 2px solid var(--primary-light-blue) !important;
+}
+
+#changelist-filter li.selected a {
+    background-color: var(--primary-light-blue) !important;
+    color: var(--primary-white) !important;
+}
+
+/* Пагинация */
+.paginator a:link,
+.paginator a:visited {
+    background-color: var(--primary-dark-blue) !important;
+    color: var(--primary-white) !important;
+}
+
+.paginator a:hover {
+    background-color: var(--primary-light-blue) !important;
+}
+
+.paginator .this-page {
+    background-color: var(--primary-light-blue) !important;
+    color: var(--primary-white) !important;
+}
+
+/* Футер */
+#footer {
+    background-color: var(--secondary-white) !important;
+    border-top: 1px solid var(--border-color) !important;
+    color: var(--text-dark) !important;
+}
+
