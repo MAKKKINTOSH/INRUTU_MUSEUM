@@ -228,3 +228,55 @@ select:focus {
     color: var(--text-dark) !important;
 }
 
+/* Скрыть кнопку переключения темы */
+.theme-toggle,
+#toggle-nav-sidebar ~ .theme-toggle,
+button[data-theme-toggle] {
+    display: none !important;
+}
+
+/* Принудительная светлая тема — переопределить тёмные переменные Django */
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+    --primary: #79aec8;
+    --secondary: #417690;
+    --accent: #f5dd5d;
+    --primary-fg: #fff;
+    --body-fg: #212529;
+    --body-bg: #ffffff;
+    --body-quiet-color: #666;
+    --body-loud-color: #000;
+    --header-color: #ffc;
+    --header-branding-color: var(--accent);
+    --header-bg: #1a3a5f;
+    --header-link-color: var(--primary-fg);
+    --breadcrumbs-fg: #c4dce8;
+    --breadcrumbs-link-fg: var(--body-bg);
+    --breadcrumbs-bg: var(--primary);
+    --link-fg: #1a3a5f;
+    --link-hover-color: #4a9bd8;
+    --link-selected-fg: #5b80b2;
+    --hairline-color: #dee2e6;
+    --border-color: #dee2e6;
+    --error-fg: #ba2121;
+    --message-success-bg: #dfd;
+    --message-warning-bg: #ffc;
+    --message-error-bg: #ffefef;
+    --darkened-bg: #f8f9fa;
+    --selected-bg: #e4eff8;
+    --selected-row: #fffacd;
+    --button-fg: #fff;
+    --button-bg: #1a3a5f;
+    --button-hover-bg: #4a9bd8;
+    --default-button-bg: #4a9bd8;
+    --default-button-hover-bg: #1a3a5f;
+    --close-button-bg: #888;
+    --close-button-hover-bg: #747474;
+    --delete-button-bg: #ba2121;
+    --delete-button-hover-bg: #a41515;
+    --object-tools-fg: var(--button-fg);
+    --object-tools-bg: var(--close-button-bg);
+    --object-tools-hover-bg: var(--close-button-hover-bg);
+    color-scheme: light;
+}
+

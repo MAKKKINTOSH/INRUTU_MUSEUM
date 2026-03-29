@@ -8,6 +8,23 @@
 <link rel="stylesheet" type="text/css" href="{% static 'admin/css/admin_custom.css' %}">
 {% endblock %}
 
+{% block extrahead %}
+{{ block.super }}
+<script>
+  // Force light theme and prevent switching to dark
+  document.documentElement.setAttribute('data-theme', 'light');
+  localStorage.setItem('theme', 'light');
+  Object.defineProperty(localStorage, 'setItem', {
+    configurable: true,
+    writable: true,
+    value: function(key, value) {
+      if (key === 'theme') value = 'light';
+      Storage.prototype.setItem.call(this, key, value);
+    }
+  });
+</script>
+{% endblock %}
+
 {% block branding %}
 <div id="site-name">
     <a href="{% url 'admin:index' %}">
