@@ -17,8 +17,9 @@ RUN pip install --no-cache-dir poetry==1.8.3
 RUN poetry config virtualenvs.create false
 
 # Install dependencies
-COPY pyproject.toml poetry.lock /app/
-RUN poetry install --no-interaction --no-ansi --no-root --without dev
+
+COPY pyproject.toml /app/
+RUN poetry lock && poetry install --no-interaction --no-ansi --no-root --without dev
 
 # Install gunicorn (not in pyproject.toml yet)
 RUN pip install --no-cache-dir gunicorn==21.2.0
