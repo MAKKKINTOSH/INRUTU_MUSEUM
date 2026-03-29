@@ -18,12 +18,12 @@ RUN pip install --no-cache-dir poetry==1.8.3
 RUN poetry config virtualenvs.create false
 
 # Install dependencies first for caching
-COPY pyproject.toml poetry.lock /app/
-RUN poetry install --no-interaction --no-ansi --no-root
+COPY pyproject.toml /app/
+RUN poetry lock && poetry install --no-interaction --no-ansi --no-root
 
 # Copy project
 COPY . /app
 
 EXPOSE 8000
 
-CMD ["/bin/sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["/bin/sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
