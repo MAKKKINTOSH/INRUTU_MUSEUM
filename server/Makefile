@@ -2,7 +2,7 @@
 include .env
 
 database_name  = $(POSTGRES_DB)
-DOCKER_COMP   = docker compose -f $(docker-compose.yml)
+DOCKER_COMP   = docker compose -f $(COMPOSE_FILE)
 
 POSTGRES_CONT = $(DOCKER_COMP) exec $(POSTGRES_DB)
 
