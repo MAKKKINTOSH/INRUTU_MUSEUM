@@ -126,27 +126,49 @@
     .HistoricalFigureDetailPage {
         padding: 24px 16px;
     }
-    
+
     .Content {
         padding: 16px;
         gap: 16px;
     }
-    
+
     .MainImage {
         height: 250px;
     }
-    
+
     .Thumbnail {
         flex: 0 0 60px;
         height: 60px;
     }
-    
+
     .Name {
         font-size: 24px;
     }
-    
+
     .Description h2 {
         font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .HistoricalFigureDetailPage {
+        padding: 16px 12px;
+    }
+
+    .Content {
+        padding: 12px;
+    }
+
+    .MainImage {
+        height: 220px;
+    }
+
+    .Name {
+        font-size: 20px;
+    }
+
+    .Description h2 {
+        font-size: 18px;
     }
 }
 

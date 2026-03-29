@@ -151,8 +151,66 @@
     gap: 2rem;
 }
 
+@media (max-width: 1024px) {
+    .WelcomeText {
+        width: 65%;
+        padding: 60px 40px;
+    }
+
+    .WelcomeText h1 {
+        font-size: 34px;
+    }
+
+    .WelcomeText p {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
+    .WelcomeSection {
+        min-height: 420px;
+        flex-direction: column;
+    }
+
+    .WelcomeText {
+        width: 100%;
+        padding: 40px 24px;
+        background: linear-gradient(
+            to bottom,
+            var(--color-block-background-white) 75%,
+            rgba(245, 247, 250, 0) 100%
+        );
+    }
+
+    .WelcomeText h1 {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    .WelcomeText p {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
     .ExcursionsGrid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .WelcomeSection {
+        min-height: 360px;
+    }
+
+    .WelcomeText {
+        padding: 28px 16px;
+    }
+
+    .WelcomeText h1 {
+        font-size: 24px;
+    }
+
+    .WelcomeText p {
+        font-size: 14px;
     }
 }
