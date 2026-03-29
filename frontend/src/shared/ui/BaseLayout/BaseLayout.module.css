@@ -14,8 +14,23 @@
 .Main {
   flex: 1 1 auto;
   width: 70vw;              /* ограничиваем ширину */
+  max-width: var(--width-main-content);
   margin: 0 auto;           /* центрируем */
   display: flex;            /* для работы gap */
   flex-direction: column;
   gap: 4px;                 /* отступ между дочерними элементами */
+}
+
+@media (max-width: 1024px) {
+  .Main {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .Main {
+    width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
 }
