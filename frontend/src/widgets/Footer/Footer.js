@@ -25,15 +25,7 @@ export function Footer({ onAdminClick }) {
                 <Logo/>
                 <div className={Styles.Links}>
                     {links.map((element, index) => (
-                        element[1] === "/admin" ? (
-                            <button 
-                                key={index} 
-                                onClick={handleAdminClick}
-                                className={Styles.adminButton}
-                            >
-                                {element[0]}
-                            </button>
-                        ) : (
+                        (
                             <Link to={element[1]} key={index}>
                                 {element[0]}
                             </Link>
